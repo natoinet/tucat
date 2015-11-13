@@ -70,9 +70,13 @@ MIDDLEWARE_CLASSES = (
 
 # MIGRATIONS CONFIGURATION
 # ------------------------------------------------------------------------------
+'''
+# Removed because of a bug with django allauth 
+# https://github.com/pennersr/django-allauth/issues/737
 MIGRATION_MODULES = {
     'sites': 'tucat.contrib.sites.migrations'
 }
+'''
 
 # DEBUG
 # ------------------------------------------------------------------------------
