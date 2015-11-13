@@ -39,13 +39,18 @@ THIRD_PARTY_APPS = (
     'allauth',  # registration
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
+    'allauth.socialaccount.providers.twitter',
     'djcelery', #Celery
+    #'chroniker',
 )
 
 # Apps specific for this project go here.
 LOCAL_APPS = (
     'tucat.users',  # custom users app
-    # Your stuff: custom apps go here
+    'tucat.core',
+    'tucat.application',
+    'tucat.twitter_extraction',
+    'tucat.twitter_streaming',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -139,6 +144,7 @@ TEMPLATES = [
         'DIRS': [
             str(APPS_DIR.path('templates')),
         ],
+        #'APP_DIRS': True,        
         'OPTIONS': {
             # See: https://docs.djangoproject.com/en/dev/ref/settings/#template-debug
             'debug': DEBUG,
@@ -235,28 +241,47 @@ AUTOSLUG_SLUGIFY_FUNCTION = 'slugify.slugify'
 # more details on how to customize your logging configuration.
 LOGGING = {
     'version': 1,
-    'disable_existing_loggers': False,
-    'filters': {
-        'require_debug_false': {
-            '()': 'django.utils.log.RequireDebugFalse'
-        }
+    'disable_existing_loggers': True,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
+        'simple': {
+            'format': '%(asctime)s %(module)s %(levelname)s %(message)s'
+        },
     },
     'handlers': {
-        'mail_admins': {
-            'level': 'ERROR',
-            'filters': ['require_debug_false'],
-            'class': 'django.utils.log.AdminEmailHandler'
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+        },
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'log/logging.log',
+            'formatter': 'simple'
         }
     },
     'loggers': {
-        'django.request': {
-            'handlers': ['mail_admins'],
-            'level': 'ERROR',
-            'propagate': True,
+        'core': {
+            'handlers': ['file', 'console'],
+            'level': 'DEBUG'
         },
+        'application': {
+            'handlers': ['file', 'console'],
+            'level': 'INFO'
+        },
+        'twitter_extraction': {
+            'handlers': ['file', 'console'],
+            'level': 'INFO'
+        },
+        'twitter_streaming': {
+            'handlers': ['file','console'],
+            'level': 'DEBUG'
+        },        
     }
 }
-
 # Your common stuff: Below this line define 3rd party library settings
 
 # Celery settings
@@ -264,6 +289,7 @@ LOGGING = {
 BROKER_URL = 'amqp://guest:guest@localhost:5672/'
 CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend'
 CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
+#CELERYD_CONCURRENCY=2
 
 #: Only add pickle to this list if your broker is secured
 #: from unwanted access (see userguide/security.html)
@@ -271,3 +297,8 @@ CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 
+# allauth: Does not require email validation when creating a social media account
+ACCOUNT_EMAIL_VERIFICATION = "none"
+ACCOUNT_EMAIL_REQUIRED = False
+ACCOUNT_UNIQUE_EMAIL = False
+ACCOUNT_USERNAME_REQUIRED = True
