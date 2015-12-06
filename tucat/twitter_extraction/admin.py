@@ -3,10 +3,7 @@ import logging
 from django.contrib import admin
 from django.core.management import call_command
 
-from tucat.twitter_extraction.models import TwitterListExtraction
-from tucat.twitter_extraction.models import TwitterListExtractionExport
-from tucat.twitter_extraction.models import ExportationType
-from tucat.twitter_extraction.models import ExtractionCollection
+from tucat.twitter_extraction.models import TwitterListExtraction, TwitterListExtractionExport, ExportationType, ExportationFormat, ExtractionCollection
 #from tucat.twitter_extraction.models import TwitterListExtraction, Manager, TwitterApp, TwitterUser, CustomTaskState, TwitterApiConstant, TwitterApiStatusCode
 
 logger = logging.getLogger('application')
@@ -34,7 +31,7 @@ class TwitterListExtractionAdmin(admin.ModelAdmin):
 
 class TwitterListExtractionExportAdmin(admin.ModelAdmin):
     readonly_fields = ('task_id', 'status', 'link_file',)
-    list_display = ('name', 'collection', 'export_type', 'last_tweet', 'task_id', 'status', 'link_file')
+    list_display = ('name', 'collection', 'export_type', 'export_format', 'last_tweet', 'task_id', 'status', 'link_file')
     actions = [run, stop]
 
 class ExtractionCollectionAdmin(admin.ModelAdmin):
@@ -43,6 +40,7 @@ class ExtractionCollectionAdmin(admin.ModelAdmin):
 
 admin.site.register(TwitterListExtraction, TwitterListExtractionAdmin)
 admin.site.register(TwitterListExtractionExport, TwitterListExtractionExportAdmin)
+admin.site.register(ExportationFormat)
 admin.site.register(ExportationType)
 admin.site.register(ExtractionCollection, ExtractionCollectionAdmin)
 

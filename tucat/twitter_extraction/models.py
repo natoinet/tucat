@@ -37,10 +37,18 @@ class ExportationType(models.Model):
     def __str__(self):
         return self.name
 
+class ExportationFormat(models.Model):
+    name = models.CharField(max_length=200)
+    format = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name
+
 
 class TwitterListExtractionExport(TucatTask):
     collection = models.ForeignKey(ExtractionCollection)
     export_type = models.ForeignKey(ExportationType)
+    export_format = models.ForeignKey(ExportationFormat)
     last_tweet = models.DateField(blank=True, null=True)
     link_file = models.CharField(blank=True, null=True, max_length=200)
 

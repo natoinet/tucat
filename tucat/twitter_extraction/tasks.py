@@ -116,10 +116,10 @@ def do_run_export(self, obj_pk):
         if (export.last_tweet is None):
             if (export.export_type.followers is True):
                 #subprocess.call([path + 'followersgraph.sh', str(export.collection), path])
-                output = subprocess.check_output([path + 'followersgraph.sh', str(export.collection), path])
+                output = subprocess.check_output([path + export.export_format.format + '-followersgraph.sh', str(export.collection), path])
             elif (export.export_type.friends is True):
                 #subprocess.call([path + 'friendsgraph.sh', str(export.collection), path])
-                output = subprocess.check_output([path + 'friendsgraph.sh', str(export.collection), path])
+                output = subprocess.check_output([path + export.export_format.format + '-friendsgraph.sh', str(export.collection), path])
             else:
                 logger.warning('do_run_export unknown export_type %s', export.export_type)
         else:
@@ -128,10 +128,10 @@ def do_run_export(self, obj_pk):
 
             if (export.export_type.followers is True):
                 #subprocess.call([path + 'followersgraph-lasttweet.sh', str(export.collection), epoch_lt, path])
-                output = subprocess.check_output([path + 'followersgraph-lasttweet.sh', str(export.collection), epoch_lt, path])
+                output = subprocess.check_output([path + export.export_format.format + '-followersgraph-lasttweet.sh', str(export.collection), epoch_lt, path])
             elif (export.export_type.friends is True):
                 #subprocess.call([path + 'friendsgraph-lasttweet.sh', str(export.collection), epoch_lt, path])
-                output = subprocess.check_output([path + 'friendsgraph-lasttweet.sh', str(export.collection), epoch_lt, path])
+                output = subprocess.check_output([path + export.export_format.format + '-friendsgraph-lasttweet.sh', str(export.collection), epoch_lt, path])
             else:
                 logger.warning('do_run_export unknown export_type %s', export.export_type)
 
