@@ -66,3 +66,16 @@ DATABASES = {
 }
 DATABASES['default']['ATOMIC_REQUESTS'] = True
 
+INSTALLED_APPS += ("gunicorn", )
+
+DATABASES = {
+    'default': {
+    'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    'NAME': 'dj_tucat',
+    'USER': 'garbellador',
+    'PASSWORD': '0QG4ltwFDv4EhOg',
+    'HOST': '127.0.0.1',
+    'PORT': '5432',
+    }
+
+}

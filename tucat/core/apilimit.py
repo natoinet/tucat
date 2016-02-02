@@ -115,7 +115,7 @@ class ApiLimitFunction(object):
 
                         # Then we check if there are some parameters left
                         while ((remaining > 0) and (len(self.parameters) > 0)):
-                            logger.debug('ApiLimitFunction.run while loop for parameters %s', self.parameters)
+                            logger.debug('ApiLimitFunction.run while loop for parameters %s', len(self.parameters))
 
                             # Call the api with connection and self.all_parameters[0]
                             status_code = connection.callApi(self.parameters[0])
@@ -286,16 +286,20 @@ class ApiLimitConnection(object):
         """
 
         remaining = 0
-        result = None
-        
-        if (self.request is not None):
-            result = self.request.headers[self.remaining_key]
 
-        if (result is not None):
-            remaining = int(result)
-        else:
-            logger.critical('ApiLimitConnection.getRemaining url %s - request %s',
-                self.url, self.request.headers)
+        try:
+            result = None
+
+            if (self.request is not None):
+                result = self.request.headers[self.remaining_key]
+
+            if (result is not None):
+                remaining = int(result)
+            else:
+                logger.critical('ApiLimitConnection.getRemaining url %s - request %s',
+                    self.url, self.request.headers)
+        except Exception as e:
+            logger.exception('getRemaining')
 
         logger.debug('ApiLimitConnection.getRemaining url %s - remaining %s', 
             self.url, remaining)
@@ -356,6 +360,11 @@ class ApiLimitConnection(object):
 
         except requests.exceptions.RequestException as e:
             logger.exception('ApiLimitFunction.run parameters[0]: %s \nrequests.exceptions.RequestException %s', parameters, e)
+
+        except:
+            logger.exception('callApi')
+            #self.setFire(self.getResetEpoch())
+            #status_code = 429
 
         return status_code
 
