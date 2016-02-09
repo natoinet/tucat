@@ -54,3 +54,15 @@ node_modules/
 
 # Celery
 celerybeat-schedule.db
+tucat/celerybeat.pid
+tucat/celeryev.pid
+
+# Django
+tucat/application/migrations/
+tucat/core/migrations/
+tucat/twitter_extraction/migrations/
+tucat/twitter_streaming/migrations/
+tucat/users/migrations/
+
+# RabbitMQ
+tucat/rabbitmq-signing-key-public.asc
