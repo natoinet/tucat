@@ -53,6 +53,7 @@ ALLOWED_HOSTS = ["*"]
 
 INSTALLED_APPS += ("gunicorn", )
 
+'''
 # STORAGE CONFIGURATION
 # ------------------------------------------------------------------------------
 # Uploaded Media Files
@@ -128,5 +129,6 @@ except ImportError:
     CACHES = {
         'default': env.cache_url("DJANGO_CACHE_URL", default="memcache://127.0.0.1:11211"),
     }
+'''
 
 # Your production stuff: Below this line define 3rd party library settings

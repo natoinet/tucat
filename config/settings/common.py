@@ -41,7 +41,6 @@ THIRD_PARTY_APPS = (
     'allauth.socialaccount',  # registration
     'allauth.socialaccount.providers.twitter',
     'djcelery', #Celery
-    #'chroniker',
 )
 
 # Apps specific for this project go here.
@@ -107,25 +106,15 @@ MANAGERS = ADMINS
 # DATABASE CONFIGURATION
 # ------------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
-
+# In local, test or production config file
+'''
 DATABASES = {
     # Raises ImproperlyConfigured exception if DATABASE_URL not in os.environ
     'default': env.db("DATABASE_URL", default="postgres://localhost/tucat"),
 }
 DATABASES['default']['ATOMIC_REQUESTS'] = True
+'''
 
-'''
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'dj_tucat',
-        'USER': 'antoinet',
-        'PASSWORD': '0QG4ltwFDv4EhOg',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-    }
-}
-'''
 # GENERAL CONFIGURATION
 # ------------------------------------------------------------------------------
 # Local time zone for this installation. Choices can be found here:
