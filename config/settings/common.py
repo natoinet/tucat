@@ -14,8 +14,8 @@ import environ
 
 ROOT_DIR = environ.Path(__file__) - 3  # (/a/b/myfile.py - 3 = /)
 APPS_DIR = ROOT_DIR.path('tucat')
-
-env = environ.Env()
+env = environ.Env(DEBUG=(bool, False),) # set default values and casting
+environ.Env.read_env() # reading .env file
 
 # APP CONFIGURATION
 # ------------------------------------------------------------------------------
@@ -80,7 +80,8 @@ MIGRATION_MODULES = {
 # DEBUG
 # ------------------------------------------------------------------------------
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#debug
-DEBUG = env.bool("DJANGO_DEBUG", False)
+#DEBUG = env.bool("DJANGO_DEBUG", False)
+DEBUG = env('DEBUG')
 
 # FIXTURE CONFIGURATION
 # ------------------------------------------------------------------------------
@@ -114,6 +115,10 @@ DATABASES = {
 }
 DATABASES['default']['ATOMIC_REQUESTS'] = True
 '''
+
+DATABASES = {
+    'default': env.db(), # Raises ImproperlyConfigured exception if DATABASE_URL not in os.environ
+}
 
 # GENERAL CONFIGURATION
 # ------------------------------------------------------------------------------

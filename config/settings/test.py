@@ -60,14 +60,17 @@ INSTALLED_APPS += ('django_extensions', )
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
 # Your local stuff: Below this line define 3rd party library settings
+'''
 DATABASES = {
     # Raises ImproperlyConfigured exception if DATABASE_URL not in os.environ
     'default': env.db("DATABASE_URL", default="postgres://localhost/tucat"),
 }
 DATABASES['default']['ATOMIC_REQUESTS'] = True
+'''
 
 INSTALLED_APPS += ("gunicorn", )
 
+'''
 DATABASES = {
     'default': {
     'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -77,5 +80,5 @@ DATABASES = {
     'HOST': '127.0.0.1',
     'PORT': '5432',
     }
-
 }
+'''

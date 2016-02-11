@@ -7,8 +7,11 @@ from celery import Celery
 
 from django.conf import settings
 
-# set the default Django settings module for the 'celery' program.
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings.local')
+import environ
+
+# Read .env file, in order to set DJANGO_SETTINGS_MODULE
+root = environ.Path(__file__) - 3
+environ.Env().read_env(root() + '/.env')
 
 app = Celery('tucat')
 
