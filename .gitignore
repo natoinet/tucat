@@ -66,3 +66,6 @@ tucat/users/migrations/
 
 # RabbitMQ
 tucat/rabbitmq-signing-key-public.asc
+
+# Environment variables
+.env
