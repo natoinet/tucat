@@ -56,6 +56,8 @@ node_modules/
 celerybeat-schedule.db
 tucat/celerybeat.pid
 tucat/celeryev.pid
+celerybeat.pid
+celeryev.pid
 
 # Django
 tucat/application/migrations/

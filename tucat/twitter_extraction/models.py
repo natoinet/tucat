@@ -18,6 +18,10 @@ class TwitterListExtraction(TucatElement):
     class Meta:
         abstract = False
 
+class ExtractionCollectionManager(models.Manager):
+    def add_collection(self, name):
+        collection = self.create(title=name)
+        return collection
 
 class ExtractionCollection(models.Model):
     date = models.DateField(max_length=200)
