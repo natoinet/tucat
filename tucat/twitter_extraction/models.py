@@ -19,7 +19,7 @@ class TwitterListExtraction(TucatElement):
         abstract = False
 
 class ExtractionCollectionManager(models.Manager):
-    def create_collection(self, owner_name, list_name, nb_users, completed):
+    def add_collection(self, owner_name, list_name, nb_users, completed):
         collection = self.create(owner_name=owner_name, list_name=list_name, nb_users=nb_users, completed=completed)
         return collection
 
