@@ -35,7 +35,8 @@ class TwitterListExtractionExportAdmin(admin.ModelAdmin):
     actions = [run, stop]
 
 class ExtractionCollectionAdmin(admin.ModelAdmin):
-    list_display = ('date', 'nb_users', 'completed')
+    #list_display = ('date', 'nb_users', 'completed')
+    list_display = ('owner_name', 'list_name', 'completed')
 
 
 admin.site.register(TwitterListExtraction, TwitterListExtractionAdmin)
@@ -43,6 +44,7 @@ admin.site.register(TwitterListExtractionExport, TwitterListExtractionExportAdmi
 admin.site.register(ExportationFormat)
 admin.site.register(ExportationType)
 admin.site.register(ExtractionCollection, ExtractionCollectionAdmin)
+#admin.site.register(ExtractionCollection)
 
 '''
 def run(modeladmin, request, queryset):
