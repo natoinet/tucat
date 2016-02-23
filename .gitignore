@@ -27,6 +27,7 @@ __pycache__
 # Logs
 *.log
 pip-log.txt
+log/
 
 # Unit test / coverage reports
 .coverage
@@ -54,7 +55,7 @@ node_modules/
 
 # Celery
 celerybeat-schedule.db
-tucat/celerybeat.pid
+celerybeat.pid
 tucat/celeryev.pid
 
 # Django
