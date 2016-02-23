@@ -55,7 +55,7 @@ node_modules/
 
 # Celery
 celerybeat-schedule.db
-celerybeat.pid
+tucat/celerybeat.pid
 tucat/celeryev.pid
 celerybeat.pid
 celeryev.pid
