@@ -48,7 +48,7 @@ def do_run_extraction(self, obj_pk):
         one_app.update(status='c')
 
     except Exception as e:
-        logger.error('do_run exception %s', e)
+        logger.exception(e)
         one_app.update(status='f')
 
     finally:

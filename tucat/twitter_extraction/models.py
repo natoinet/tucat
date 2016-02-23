@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.db import models
 from django.db.models import signals
 
@@ -19,14 +21,15 @@ class TwitterListExtraction(TucatElement):
         abstract = False
 
 class ExtractionCollectionManager(models.Manager):
-    def add_collection(self, owner_name, list_name, nb_users, completed):
-        collection = self.create(owner_name=owner_name, list_name=list_name, nb_users=nb_users, completed=completed)
+    def create_collection(self, owner_name, list_name, completed):
+        collection = self.create(owner_name=owner_name, list_name=list_name, completed=completed)
         return collection
 
 class ExtractionCollection(models.Model):
     owner_name = models.CharField(max_length=200)
     list_name = models.CharField(max_length=200)    
-    nb_users = models.IntegerField()
+    date = models.DateField(max_length=200, default=datetime.now())
+    nb_users = models.IntegerField(default=0)
     completed = models.DateTimeField()
 
     objects = ExtractionCollectionManager()
