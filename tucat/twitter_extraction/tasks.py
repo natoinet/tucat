@@ -4,6 +4,7 @@ import logging
 import subprocess
 from datetime import datetime
 from os.path import dirname
+from datetime import datetime
 
 from celery import task
 from celery.app.task import Task
@@ -14,7 +15,7 @@ from tucat.core.celery import app
 #from tucat.application.models import CeleryTaskLock
 from tucat.core.models import DjangoAdminCeleryTaskLock
 from tucat.application.models import TucatApplication
-from tucat.twitter_extraction.models import TwitterListExtraction, TwitterListExtractionExport
+from tucat.twitter_extraction.models import TwitterListExtraction, TwitterListExtractionExport, ExtractionCollection
 from tucat.twitter_extraction.twitter import tw_extraction
 
 #from celery.signals import task_prerun, task_success, worker_init, task_failure
@@ -41,6 +42,8 @@ def do_run_extraction(self, obj_pk):
         tucat_elements = TwitterListExtraction.objects.filter(application_id=one_app.id, is_enabled=True)
         for element in tucat_elements:
             tw_extraction(owner_name=element.owner_name, list_name=element.list_name)
+            col_name = "-".join([element.owner_name, element.list_name, datetime.utcnow().strftime('%Y-%m-%d-%H-%M')])
+            ExtractionCollection.objects.add_collection(col_name)
 
         one_app.update(status='c')
 

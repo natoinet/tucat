@@ -38,7 +38,7 @@ all_users_following_id = defaultdict(set)
 all_users_follower_id = defaultdict(set)
 top_users = set()
 
-db_name = 'politweaks'
+db_name = 'twitter_extraction'
 collection_name = datetime.utcnow().strftime('%Y-%m-%d')
 
 #logging.config.fileConfig('tucat/twitter_extraction/logging-run.conf')
@@ -281,8 +281,7 @@ def get_hundred_ids():
     return parameters
 
 def tw_extraction(owner_name='', list_name=''):
-    #global force_stop
-    #global current_function
+    global db_name
 
     logger.info('tw_extraction start %s %s', owner_name, list_name)
 
@@ -292,7 +291,7 @@ def tw_extraction(owner_name='', list_name=''):
 
     """Start"""
     force_stop = False
-    drop_collection('politweaks', 'users_results')
+    drop_collection(db_name, 'users_results')
 
     '''
     if (force_stop is True):
