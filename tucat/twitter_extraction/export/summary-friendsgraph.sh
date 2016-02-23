@@ -3,7 +3,7 @@
 # Run with ./friendsgraph.sh '2014-12-05' '/Users/blourp/src/tucat/tucat/twitter_extraction/export/'
 
 OUTPUT_FILES="/Users/antoinebrunel/Downloads"
-DBNAME=twitter_extraction
+DBNAME=tucat_twitter_extraction
 QUERY='{follower : { $ne : [ ]}}'
 MONGO_FIELDS_NODE='screenname,name,topuser,followerscount,listedcount,statusescount,friendscount,lang,statussource,statuscreatedat'
 GRAPH_FIELDS_NODE='nodedef>name VARCHAR,label VARCHAR,type VARCHAR, followerscount INT,listedcount INT,statusescount INT,friendscount INT,lang VARCHAR,statussource VARCHAR,statuscreatedat VARCHAR'

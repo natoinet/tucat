@@ -38,7 +38,8 @@ all_users_following_id = defaultdict(set)
 all_users_follower_id = defaultdict(set)
 top_users = set()
 
-db_name = 'twitter_extraction'
+db_name = __package__.replace('.', '_')
+
 collection_name = datetime.utcnow().strftime('%Y-%m-%d')
 
 #logging.config.fileConfig('tucat/twitter_extraction/logging-run.conf')
