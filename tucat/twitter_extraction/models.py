@@ -22,7 +22,7 @@ class TwitterListExtraction(TucatElement):
 
 
 class ExtractionCollectionManager(models.Manager):
-    def create_collection(self, owner_name, list_name, completed):
+    def create_collection(self, owner_name, list_name, completed, collection_name):
         collection = self.create(owner_name=owner_name, list_name=list_name, completed=completed, collection_name=collection_name)
         return collection
 
