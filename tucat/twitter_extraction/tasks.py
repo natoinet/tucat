@@ -41,7 +41,7 @@ def do_run_extraction(self, obj_pk):
 
         tucat_elements = TwitterListExtraction.objects.filter(application_id=one_app.id, is_enabled=True)
         for element in tucat_elements:
-            col_name = "-".join([element.owner_name, element.list_name, datetime.utcnow().strftime('%Y-%m-%d-%H-%M')])
+            colname = "-".join([element.owner_name, element.list_name, datetime.utcnow().strftime('%Y-%m-%d-%H-%M')])
             tw_extraction(owner_name=element.owner_name, list_name=element.list_name, collection_name=colname)
             ExtractionCollection.objects.create_collection(element.owner_name, element.list_name, datetime.now(), colname)
 
