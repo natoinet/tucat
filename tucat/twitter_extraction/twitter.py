@@ -42,7 +42,7 @@ db_name = __package__.replace('.', '_')
 
 #collection_name = datetime.utcnow().strftime('%Y-%m-%d')
 
-collection_name = None
+colname = None
 
 #logging.config.fileConfig('tucat/twitter_extraction/logging-run.conf')
 #logging.config.fileConfig('/Users/antoinebrunel/src/tucat/tucat/twitter_extraction/logging-run.conf')
@@ -127,12 +127,12 @@ def get_user_dict(screen_name, top_user, json_user, following, follower):
 
 def add_user_to_mongo(screen_name, top_user, json_user, following, follower):
     global db_name
-    global collection_name
+    global colname
 
     logger.debug('add_user_to_mongo')
 
     user_dict = get_user_dict(screen_name, top_user, json_user, following, follower)      
-    collection_extraction = get_collection(db_name, collection_name)
+    collection_extraction = get_collection(db_name, colname)
     collection_extraction.insert(user_dict)
 
     logger.debug('add_user_to_mongo %s OK', screen_name)
@@ -283,8 +283,8 @@ def get_hundred_ids():
 
 def tw_extraction(owner_name='', list_name='', collection_name=''):
     global db_name
-    global collection_name
-    collection_name = collection_name
+    global colname
+    colname = collection_name
 
     logger.info('tw_extraction start %s %s', owner_name, list_name)
     
