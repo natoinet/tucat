@@ -20,17 +20,20 @@ class TwitterListExtraction(TucatElement):
     class Meta:
         abstract = False
 
+
 class ExtractionCollectionManager(models.Manager):
     def create_collection(self, owner_name, list_name, completed):
-        collection = self.create(owner_name=owner_name, list_name=list_name, completed=completed)
+        collection = self.create(owner_name=owner_name, list_name=list_name, completed=completed, collection_name=collection_name)
         return collection
+
 
 class ExtractionCollection(models.Model):
     owner_name = models.CharField(max_length=200)
-    list_name = models.CharField(max_length=200)    
+    list_name = models.CharField(max_length=200)
     date = models.DateField(max_length=200, default=datetime.now())
     nb_users = models.IntegerField(default=0)
     completed = models.DateTimeField()
+    collection_name = models.CharField(max_length=200, default='')
 
     objects = ExtractionCollectionManager()
 
@@ -46,6 +49,7 @@ class ExportationType(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class ExportationFormat(models.Model):
     name = models.CharField(max_length=200)

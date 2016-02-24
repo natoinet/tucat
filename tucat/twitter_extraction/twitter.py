@@ -40,7 +40,9 @@ top_users = set()
 
 db_name = __package__.replace('.', '_')
 
-collection_name = datetime.utcnow().strftime('%Y-%m-%d')
+#collection_name = datetime.utcnow().strftime('%Y-%m-%d')
+
+collection_name = None
 
 #logging.config.fileConfig('tucat/twitter_extraction/logging-run.conf')
 #logging.config.fileConfig('/Users/antoinebrunel/src/tucat/tucat/twitter_extraction/logging-run.conf')
@@ -177,8 +179,6 @@ def addAllUsersToResults(url, parameters, res_status_code, res_json):
     users_results = get_collection(db_name, 'users_results')
 
     for one_user_json in res_json:
-        
-    
         #Check for existence for not overwriting top users
         if (users_results.find_one({'date': DATE_START, 'screen_name' : one_user_json['screen_name']}) is None):
             # Is not a top user => Insert new document in database
@@ -281,11 +281,13 @@ def get_hundred_ids():
 
     return parameters
 
-def tw_extraction(owner_name='', list_name=''):
+def tw_extraction(owner_name='', list_name='', collection_name=''):
     global db_name
+    global collection_name
+    collection_name = collection_name
 
     logger.info('tw_extraction start %s %s', owner_name, list_name)
-
+    
     current_function = None
     app_token = get_app_token('twitter')
     users_token = get_users_token ('twitter')
