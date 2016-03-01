@@ -6,7 +6,7 @@
 DBNAME=$1
 COLNAME=$2
 LTDATE=$3
-PATH=$4
+EXP_PATH=$4
 OUTPUT_FILES=$5
 
 #OUTPUT_FILES="/Users/antoinebrunel/Downloads"
@@ -23,7 +23,7 @@ FRIENDORFOLLOWER='follower'
 
 #echo "Step 1> Aggregating Mongodb data"
 #COLLECTION=$(mongo --quiet --eval "var dbname='$DBNAME', colname='$1', ltdate=$2, friendfollower='$FRIENDORFOLLOWER'" $3aggregation.js)
-COLLECTION=$(mongo --quiet --eval "var dbname='$DBNAME', colname='$COLNAME', ltdate=$LTDATE, friendfollower='$FRIENDORFOLLOWER'" "$PATH"aggregation.js)
+COLLECTION=$(mongo --quiet --eval "var dbname='$DBNAME', colname='$COLNAME', ltdate=$LTDATE, friendfollower='$FRIENDORFOLLOWER'" "$EXP_PATH"aggregation.js)
 
 #echo "Step 2> Exporting node data > archivo-node-$1-$COLLECTION.csv"
 #mongoexport --quiet --db $DBNAME --collection $1 --fields $MONGO_FIELDS_NODE --query "$QUERY" --csv -o "$OUTPUT_FILES/summary-node-$1-$2-$COLLECTION.csv"

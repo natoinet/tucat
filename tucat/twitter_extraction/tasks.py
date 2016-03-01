@@ -111,7 +111,7 @@ def do_run_export(self, obj_pk):
     try:
         output = None
         db_name = __package__.replace('.', '_')
-        out_folder = str(Path(__file__).parent / 'output') + '/'
+        out_folder = str(Path(__file__).parents[1] / 'output') 
         export.link_file = output
         export.update(self.request.id, 'r')
 

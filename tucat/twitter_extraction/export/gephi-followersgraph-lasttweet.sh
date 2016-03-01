@@ -5,7 +5,7 @@
 DBNAME=$1
 COLNAME=$2
 LTDATE=$3
-PATH=$4
+EXP_PATH=$4
 OUTPUT_FILES=$5
 QUERY="{following : {\$ne : [ ]}, dtstatuscreatedat : {\$gte : new Date($LTDATE) }}"
 MONGO_FIELDS_NODE='screenname,name,topuser,followerscount,listedcount,statusescount,friendscount,lang,statussource,statuscreatedat'
@@ -17,7 +17,7 @@ FRIENDORFOLLOWER='following'
 #echo "OXSI-TUCAT: Starting data export"
 
 #echo "Step 1> Aggregating Mongodb data"
-COLLECTION=$(mongo --quiet --eval "var dbname='$DBNAME', colname='$COLNAME', ltdate='$LTDATE', friendfollower='$FRIENDORFOLLOWER'" "$PATH"aggregation.js)
+COLLECTION=$(mongo --quiet --eval "var dbname='$DBNAME', colname='$COLNAME', ltdate='$LTDATE', friendfollower='$FRIENDORFOLLOWER'" "$EXP_PATH"aggregation.js)
 
 #echo "Step 2> Exporting node data > archivo-node-$1-$COLLECTION.csv"
 mongoexport --quiet --db $DBNAME --collection $2 --fields $MONGO_FIELDS_NODE --query "$QUERY" --csv -o "$OUTPUT_FILES/archivo-node-$2-$COLLECTION.csv"

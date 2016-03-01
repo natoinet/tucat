@@ -6,7 +6,7 @@
 DBNAME=$1
 COLNAME=$2
 LTDATE=$3
-PATH=$4
+EXPORT_PATH=$4
 OUTPUT_FILES=$5
 
 #OUTPUT_FILES="/Users/antoinebrunel/Downloads"
@@ -23,9 +23,10 @@ FRIENDORFOLLOWER='follower'
 
 #echo "Step 1> Aggregating Mongodb data"
 #COLLECTION=$(mongo --quiet --eval "var dbname='$DBNAME', colname='$1', ltdate=$2, friendfollower='$FRIENDORFOLLOWER'" $3aggregation.js)
-COLLECTION=$(mongo --quiet --eval "var dbname='$DBNAME', colname='$COLNAME', ltdate=$LTDATE, friendfollower='$FRIENDORFOLLOWER'" "$PATH"aggregation.js)
+echo $DBNAME $COLNAME $LTDATE $FRIENDORFOLLOWER $EXPORT_PATH
+COLLECTION=$(mongo --quiet --eval "var dbname='$DBNAME', colname='$COLNAME', ltdate=$LTDATE, friendfollower='$FRIENDORFOLLOWER'" "$EXPORT_PATH"aggregation.js)
 
-#echo "Step 2> Exporting node data > archivo-node-$1-$COLLECTION.csv"
+#echo "Step 2> Exporting node data > archivo-node-$COLNAME-$COLLECTION.csv"
 #mongoexport --quiet --db $DBNAME --collection $1 --fields $MONGO_FIELDS_NODE --query "$QUERY" --csv -o "$OUTPUT_FILES/archivo-node-$1-$COLLECTION.csv"
 #sed "1s/.*/$GRAPH_FIELDS_NODE/" "$OUTPUT_FILES/archivo-node-$1-$COLLECTION.csv" > "$OUTPUT_FILES/archivo-node-mod-$1-$COLLECTION.csv"
 mongoexport --quiet --db $DBNAME --collection $COLNAME --fields $MONGO_FIELDS_NODE --query "$QUERY" --csv -o "$OUTPUT_FILES/archivo-node-$COLNAME-$COLLECTION.csv"
