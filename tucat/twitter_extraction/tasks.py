@@ -5,6 +5,7 @@ import subprocess
 from datetime import datetime
 from os.path import dirname
 from datetime import datetime
+from pathlib import Path
 
 from celery import task
 from celery.app.task import Task
@@ -110,11 +111,11 @@ def do_run_export(self, obj_pk):
     try:
         output = None
         db_name = __package__.replace('.', '_')
-        out_folder = dirname(__file__) + '../output/'
+        out_folder = str(Path(__file__).parent / 'output') + '/'
         export.link_file = output
         export.update(self.request.id, 'r')
 
-        path = dirname(__file__) + '/export/'
+        path = str(Path(__file__).parent / 'export') + '/'
         #export_type = ExportationType.objects.get(pk=export_type_id)
         logger.info('do_run_export %s %s %s to %s', export.export_type, export.collection, export.last_tweet, path)
 
