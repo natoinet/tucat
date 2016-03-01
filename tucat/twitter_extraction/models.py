@@ -38,7 +38,7 @@ class ExtractionCollection(models.Model):
     objects = ExtractionCollectionManager()
 
     def __str__(self):
-        return self.owner_name + self.list_name + str(self.completed)
+        return self.collection_name
 
 
 class ExportationType(models.Model):
