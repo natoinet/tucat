@@ -11,31 +11,6 @@ from requests_oauthlib import OAuth1
 
 logger = logging.getLogger('core')
 
-"""
-class ApiLimitFunctionDict(dict):
-    """"""
-    The dictionary just died because there is a while loop in the function
-    so that the second api function will not be executed before the other
-    ends.
-    This class inherits from dictionary base class.
-    >> addApiFunction a new function to run also takes a list of connections
-    that creates a new TwitterApiLimitFunction.
-    >> run() runs a for loop for all TwitterApiLimitFunction in the dict.
-    """"""
-
-    def addApiFunction(self, api_function, list_connections, delegate):
-        # Creer la classe TwitterApiLimitParameters
-        # Fixer les parametres connection et api_function
-        self[api_function] = TwitterApiFunction(api_function, list_connections, delegate)
-
-    def appendParameters(self, api_function, parameters):
-        self[api_function].append(parameters)
-
-    def run(self, list_connections):
-        for api_function in self:
-            self[api_functt_______ion].start()
-    """
-
 class DataExtractionException(Exception):
     def __init__(self, url, msg, status_code):
         self.url = url

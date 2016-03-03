@@ -43,23 +43,10 @@ def unlock(modeladmin, request, queryset):
         call_command(obj.command_name, obj=obj, unlock='unlock')
 unlock.short_description = "Unlock the app"
 
-'''
-class TucatTaskAdmin(admin.ModelAdmin):
-    list_display = ('name', 'status', 'is_current', 'progress', 'currently', 'modified')
-    readonly_fields = ('created', 'modified', 'name', 'task_id', 
-        'status', 'total_nb', 'current_nb', 'currently', 'lock')
-'''
-
 class TucatApplicationAdmin(admin.ModelAdmin):
     list_display = ('name', 'status', 'modified', 'task_id')
     readonly_fields = ('modified', 'task_id', 'status')
     actions = [run, stop, unlock]
 
-'''
-class TucatElementAdmin(admin.ModelAdmin):
-    list_display = ('modified', 'name', 'status', 'task_id', 'lock')
-    readonly_fields = ('modified', 'task_id', 'status', 'lock')
-    actions = [run, stop]
-'''
 
 admin.site.register(TucatApplication, TucatApplicationAdmin)

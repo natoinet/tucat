@@ -1,1 +1,0 @@
-#default_app_config = 'tucat.twitter_extraction.apps.TwitterExtractionConfig'

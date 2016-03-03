@@ -37,15 +37,8 @@ all_users = set()
 all_users_following_id = defaultdict(set)
 all_users_follower_id = defaultdict(set)
 top_users = set()
-
 db_name = __package__.replace('.', '_')
-
-#collection_name = datetime.utcnow().strftime('%Y-%m-%d')
-
 colname = None
-
-#logging.config.fileConfig('tucat/twitter_extraction/logging-run.conf')
-#logging.config.fileConfig('/Users/antoinebrunel/src/tucat/tucat/twitter_extraction/logging-run.conf')
 
 def drop_collection(database, collection):
     logger.debug('Drop collection %s', database)
@@ -354,42 +347,3 @@ def tw_extraction(owner_name='', list_name='', collection_name=''):
     current_function.run()
     logger.info('tw_extraction post_lookup')
 
-'''
-def do_stop():
-    try:
-        lock = CeleryTaskLock.objects.get(package_name=__package__)
-        logger.info('do_stop locked task_id %s', lock.task_id)
-        app.control.revoke(lock.task_id, terminate=True)
-        lock.delete()
-        logger.info('do_stop: Task revoked and lock released')
-
-        one_app = TucatApplication.objects.get(package_name=__package__)
-        one_app.update(status='s')
-
-    except Exception as e:
-        logger.error('do_stop exception %s', e)
-
-def unlock():
-    try:
-        lock = CeleryTaskLock.objects.get(package_name=__package__).delete()
-        one_app = TucatApplication.objects.get(package_name=__package__)
-        one_app.update(status='f', lock=None)
-        logger.info('unlocked')
-    except Exception as e:
-        logger.error('unlock exception %s', e)
-
-def do_cmd(action=None):
-    logger.info('do_cmd %s', action)
-
-    if (action is 'run'):
-        logger.info('Running')
-        do_run.apply_async()
-    elif (action is 'stop'):
-        logger.info('Stopping')
-        do_stop()
-    elif (action is 'unlock'):
-        logger.info('Unlocking')
-        unlock()
-    else:
-        logger.info('Unknown command')
-'''
