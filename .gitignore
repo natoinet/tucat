@@ -72,3 +72,6 @@ tucat/rabbitmq-signing-key-public.asc
 
 # Environment variables
 .env
+
+# Output
+tucat/output/
