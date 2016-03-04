@@ -65,7 +65,7 @@ Start supervisord at startup
     # sudo update-rc.d supervisord defaults
 
 Create & install the virtualenv
-     # mkvirtualenv --python=/usr/local/opt/python-3.4.1/bin/python3 -r requirements/test.txt tucat
+     # mkvirtualenv --python=/usr/local/opt/python-3.4.1/bin/python3 -r  ~/src/tucat/requirements.txt tucat
 
 Create a log folder
      # cd tucat
