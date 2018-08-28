@@ -18,6 +18,7 @@ import requests
 from requests_oauthlib import OAuth1
 import pymongo
 from pymongo import MongoClient
+from django.conf import settings
 
 from tucat.core.token import get_app_token, get_users_token
 from tucat.core.celery import app
@@ -43,14 +44,14 @@ colname = None
 def drop_collection(database, collection):
     logger.debug('Drop collection %s', database)
     
-    client = MongoClient()
+    client = MongoClient(settings.MONGO_CLIENT)
     db = client[database]
     db.drop_collection(collection)
 
 def get_collection(database, collection):
     logger.debug('get collection %s from database %s', collection, database)
     
-    client = MongoClient()
+    client = MongoClient(settings.MONGO_CLIENT)
     db = client[database]
 
     logger.debug('return database %s collection %s', database, collection)

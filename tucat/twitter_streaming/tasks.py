@@ -8,6 +8,7 @@ from requests_oauthlib import OAuth1
 from celery import task
 from celery.app.task import Task
 from pymongo import MongoClient
+from django.conf import settings
 
 from djcelery.models import PeriodicTask
 
@@ -96,7 +97,7 @@ def get_since_id(colname):
     db_name = __package__.replace('.', '_')
     logger.debug('filename:%s | db: %s', __file__, db_name)
 
-    db = MongoClient()[db_name]
+    db = MongoClient(settings.MONGO_CLIENT)[db_name]
 
     if (db[colname].find().count() > 0):
         since_id = db[colname].find().limit(1).sort([('$natural',1)])[0]['id']
@@ -114,7 +115,7 @@ def _todb(colname, request):
     else:
         db_name = __package__.replace('.', '_')
         logger.debug('filename:%s | db: %s | collection:%s | json: %s', __file__, db_name, colname, request.json())
-        db = MongoClient()[db_name]
+        db = MongoClient(settings.MONGO_CLIENT)[db_name]
         json_list = request.json()
         # Duplicate removal
         for one_json in json_list:
