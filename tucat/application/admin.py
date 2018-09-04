@@ -4,8 +4,8 @@ from django.contrib import admin
 from django.core.management import call_command
 
 # Register your models here.
-from djcelery.models import (TaskState, WorkerState,
-                 PeriodicTask, IntervalSchedule, CrontabSchedule)
+#from djcelery.models import (TaskState, WorkerState,
+#                 PeriodicTask, IntervalSchedule, CrontabSchedule)
 
 from tucat.application.models import TucatApplication
 #from tucat.twitter_extraction.models import TwitterListExtraction, Manager, TwitterApp, TwitterUser, CustomTaskState, TwitterApiConstant, TwitterApiStatusCode
