@@ -21,10 +21,10 @@ FRIENDORFOLLOWER='following'
 #echo "OXSI-TUCAT: Starting data export"
 
 #echo "Step 1> Aggregating Mongodb data"
-COLLECTION=$(mongo --quiet --eval "var dbname='$DBNAME', colname='$COLNAME', ltdate=$LTDATE, friendfollower='$FRIENDORFOLLOWER'" "$EXP_PATH"aggregation.js)
+COLLECTION=$(mongo --quiet --host $MONGOHOST --eval "var dbname='$DBNAME', colname='$COLNAME', ltdate=$LTDATE, friendfollower='$FRIENDORFOLLOWER'" "$EXP_PATH"aggregation.js)
 
 #echo "Step 2> Exporting node data > archivo-node-$1-$COLLECTION.csv"
-mongoexport --quiet --db $DBNAME --collection $COLNAME --fields $MONGO_FIELDS_NODE --query "$QUERY" --csv -o "$OUTPUT_FILES/summary-node-$COLNAME-$LTDATE-$COLLECTION.csv"
-mongo --quiet --eval "db.getSiblingDB('$DBNAME')['$COLLECTION'].drop()"
+mongoexport --quiet --host $MONGOHOST --db $DBNAME --collection $COLNAME --fields $MONGO_FIELDS_NODE --query "$QUERY" --csv -o "$OUTPUT_FILES/summary-node-$COLNAME-$LTDATE-$COLLECTION.csv"
+mongo --quiet --host $MONGOHOST --eval "db.getSiblingDB('$DBNAME')['$COLLECTION'].drop()"
 
 echo "$OUTPUT_FILES/summary-node-$COLNAME-$LTDATE-$COLLECTION.csv"
