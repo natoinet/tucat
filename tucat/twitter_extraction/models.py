@@ -60,9 +60,9 @@ class ExportationFormat(models.Model):
 
 
 class TwitterListExtractionExport(TucatTask):
-    collection = models.ForeignKey(ExtractionCollection)
-    export_type = models.ForeignKey(ExportationType)
-    export_format = models.ForeignKey(ExportationFormat)
+    collection = models.ForeignKey(ExtractionCollection, on_delete=models.CASCADE)
+    export_type = models.ForeignKey(ExportationType, on_delete=models.CASCADE)
+    export_format = models.ForeignKey(ExportationFormat, on_delete=models.CASCADE)
     last_tweet = models.DateField(blank=True, null=True)
     link_file = models.CharField(blank=True, null=True, max_length=200)
 

@@ -22,7 +22,7 @@ class TucatApplication(TimeStampedModel):
 
 class TucatElement(TimeStampedModel):
     status = models.CharField(max_length=1, choices=STATUS_CHOICES)
-    application = models.ForeignKey(TucatApplication)
+    application = models.ForeignKey(TucatApplication, on_delete=models.CASCADE)
     is_enabled = models.BooleanField(default=True)
 
     class Meta:
