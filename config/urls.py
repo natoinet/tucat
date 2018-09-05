@@ -13,10 +13,11 @@ urlpatterns = [
     url(r'^about/$', TemplateView.as_view(template_name='pages/about.html'), name="about"),
 
     # Django Admin
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/', admin.site.urls),
 
     # User management
-    url(r'^users/', include("tucat.users.urls", namespace="users")),
+    #url(r'^users/', include("tucat.users.urls", namespace="users")),
+    url(r'^users/', include("tucat.users.urls")),
     url(r'^accounts/', include('allauth.urls')),
 
     # Your stuff: custom urls includes go here

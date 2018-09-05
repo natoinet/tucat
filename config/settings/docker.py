@@ -61,7 +61,7 @@ THIRD_PARTY_APPS = (
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
     'allauth.socialaccount.providers.twitter',
-    'djcelery', #Celery
+    #'djcelery', #Celery
 )
 
 # Apps specific for this project go here.
@@ -196,8 +196,11 @@ MEDIA_URL = '/media/'
 # Celery settings
 #BROKER_URL = 'amqp://guest:guest@localhost:5672/'
 BROKER_URL = 'amqp://guest:guest@rabbitmq:5672/'
-CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend'
-CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
+CELERY_BROKER_URL = 'amqp://guest:guest@rabbitmq:5672/'
+#CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend'
+result_backend ='db+postgresql://dbtucat_role:dbtucat_password@dbtucat/default'
+#CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
+
 CELERYD_CONCURRENCY=1
 
 #: Only add pickle to this list if your broker is secured

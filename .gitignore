@@ -59,6 +59,7 @@ tucat/celerybeat.pid
 tucat/celeryev.pid
 celerybeat.pid
 celeryev.pid
+celerybeat-schedule
 
 # Django
 tucat/application/migrations/

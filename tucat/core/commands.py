@@ -10,6 +10,7 @@ class TucatExportCommand(BaseCommand):
     '''
 
     def add_arguments(self, parser):
+        parser.add_argument('--obj', dest='obj')
         group = parser.add_mutually_exclusive_group()
         group.add_argument('-r', '--run', action='store_true')
         group.add_argument('-s', '--stop', action='store_true')
