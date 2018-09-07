@@ -10,7 +10,7 @@ from celery.app.task import Task
 from pymongo import MongoClient
 from django.conf import settings
 
-from djcelery.models import PeriodicTask
+from django_celery_beat.models import PeriodicTask
 
 from tucat.core.token import get_app_token, get_users_token
 from tucat.application.models import TucatApplication

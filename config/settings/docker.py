@@ -61,7 +61,7 @@ THIRD_PARTY_APPS = (
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
     'allauth.socialaccount.providers.twitter',
-    #'djcelery', #Celery
+    'django_celery_beat',
 )
 
 # Apps specific for this project go here.
@@ -200,6 +200,9 @@ CELERY_BROKER_URL = 'amqp://guest:guest@rabbitmq:5672/'
 #CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend'
 result_backend ='db+postgresql://dbtucat_role:dbtucat_password@dbtucat/default'
 #CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
+beat_scheduler = 'django_celery_beat.schedulers:DatabaseScheduler'
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+CELERYBEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 
 CELERYD_CONCURRENCY=1
 
