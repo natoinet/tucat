@@ -13,9 +13,9 @@
       <h2>{% trans "Sign In" %}</h2>
 
       {% load socialaccount %}
-      <a href="{% provider_login_url "twitter" %}">Twitter</a>
-
-      {% if socialaccount.providers  %}
+      <ol>
+		  <h3><li><a href="{% provider_login_url "twitter" %}">Login with Twitter</a></h3></li>
+		  {% if socialaccount.providers  %}
       <p>{% blocktrans with site.name as site_name %}Please sign in with one
       of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
       for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
@@ -33,16 +33,18 @@
       {% include "socialaccount/snippets/login_extra.html" %}
 
       {% endif %}
-
+	  
+	  <h3><li><a href="{% url 'account_signup' %}">Sign-up</a>, or Login :</h3>
       <form class="login" method="POST" action="{% url 'account_login' %}">
         {% csrf_token %}
         {{ form|crispy }}
         {% if redirect_field_value %}
         <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
         {% endif %}
-        <button class="btn btn-primary" type="submit">{% trans "Sign In" %}</button>
+        <button class="btn btn-primary" type="submit"><h4>{% trans "Login" %}</h4></button>
         <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
-      </form>
+      </form></li>
+  </ol>
     </div>
   </div>
 </div>
