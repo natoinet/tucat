@@ -6,6 +6,9 @@ from datetime import datetime
 from os.path import dirname
 from datetime import datetime
 from pathlib import Path
+import re
+
+from django.http import HttpResponse
 
 from celery import task
 from celery.app.task import Task
@@ -137,7 +140,15 @@ def do_run_export(self, obj_pk):
                 logger.warning('do_run_export unknown export_type %s', export.export_type)
 
         logger.info('do_run_export output %s', output)
-        export.link_file = output.decode("utf-8")
+        #export.link_file = output.decode("utf-8")
+
+        result = output.decode("utf-8")
+        export.link_file = re.findall(r"\S+", result)[1]
+        #f = open('./tucat/output/' + link_file, 'r')
+        #response = HttpResponse(f, content_type='text/csv')
+        #response['Content-Disposition'] = ('attachment; filename='+ link_file)
+        #export.link_file = response
+        
         export.update(self.request.id, 'c')
     except Exception as e:
         logger.error('do_run_export exception %s', e)

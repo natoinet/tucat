@@ -4,9 +4,9 @@ import re
 from django.contrib import admin
 from django.core.management import call_command
 from django.http import HttpResponse
+from django.utils.html import format_html
 
 from tucat.twitter_extraction.models import TwitterListExtraction, TwitterListExtractionExport, ExportationType, ExportationFormat, ExtractionCollection
-#from tucat.twitter_extraction.models import TwitterListExtraction, Manager, TwitterApp, TwitterUser, CustomTaskState, TwitterApiConstant, TwitterApiStatusCode
 
 logger = logging.getLogger('application')
 
@@ -29,12 +29,12 @@ stop.short_description = "Stop the export"
 def download(self, request, queryset):
     for obj in queryset:
         logger.info('Command export download for %s', obj.link_file)
-        link_file = re.findall(r"\S+", obj.link_file)[1]
-        f = open('./tucat/output/' + link_file, 'r')
+        #link_file = re.findall(r"\S+", obj.link_file)[1]
+        f = open('./tucat/output/' + obj.link_file, 'r')
         response = HttpResponse(f, content_type='text/csv')
-        response['Content-Disposition'] = ('attachment; filename='+ link_file)
+        response['Content-Disposition'] = ('attachment; filename='+ obj.link_file)
         return response
-download.short_description = "Download the export."
+download.short_description = "Download This export (only one selected)"
 
 
 class TwitterListExtractionAdmin(admin.ModelAdmin):
@@ -43,12 +43,15 @@ class TwitterListExtractionAdmin(admin.ModelAdmin):
 
 class TwitterListExtractionExportAdmin(admin.ModelAdmin):
     readonly_fields = ('task_id', 'status', 'link_file',)
-    list_display = ('name', 'collection', 'export_type', 'export_format', 'last_tweet', 'task_id', 'status', 'link_file')
+    list_display = ('name', 'collection', 'export_type', 'export_format', 'last_tweet', 'task_id', 'status', 'download')
     actions = [run, stop, download]
-    
 
+    def download(self, obj):
+        return format_html("<a href='/static/output/{0}'>{0}</a>", obj.link_file)
+    download.allow_tags = True
+    download.short_description = 'Download'
+    
 class ExtractionCollectionAdmin(admin.ModelAdmin):
-    #list_display = ('date', 'nb_users', 'completed')
     list_display = ('owner_name', 'list_name', 'completed')
 
 
