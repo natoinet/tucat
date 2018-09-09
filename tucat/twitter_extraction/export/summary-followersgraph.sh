@@ -29,4 +29,4 @@ mongoexport --quiet --host $MONGOHOST --db $DBNAME --collection $COLNAME --field
 mongo --quiet --host $MONGOHOST --eval "db.getSiblingDB('$DBNAME')['$COLLECTION'].drop()"
 
 #echo "$OUTPUT_FILES/summary-node-$1-$COLLECTION.csv"
-echo "$OUTPUT_FILES/summary-node-$COLNAME-$COLLECTION.csv"
+echo "summary-node-$COLNAME-$COLLECTION.csv"

@@ -27,4 +27,4 @@ COLLECTION=$(mongo --quiet --host $MONGOHOST --eval "var dbname='$DBNAME', colna
 mongoexport --quiet --host $MONGOHOST --db $DBNAME --collection $COLNAME --fields $MONGO_FIELDS_NODE --query "$QUERY" --csv -o "$OUTPUT_FILES/summary-node-$COLNAME-$LTDATE-$COLLECTION.csv"
 mongo --quiet --host $MONGOHOST --eval "db.getSiblingDB('$DBNAME')['$COLLECTION'].drop()"
 
-echo "$OUTPUT_FILES/summary-node-$COLNAME-$LTDATE-$COLLECTION.csv"
+echo "summary-node-$COLNAME-$LTDATE-$COLLECTION.csv"

@@ -46,4 +46,4 @@ mongo --quiet --host $MONGOHOST --eval "db.getSiblingDB('$DBNAME')['$COLLECTION'
 
 #echo "Finished> $OUTPUT_FILES/grafo-friends-$1-$2-$COLLECTION.gdf - Thank you for your patience."
 #echo "$OUTPUT_FILES/grafo-friends-$1-$2-$COLLECTION.gdf"
-echo "$OUTPUT_FILES/grafo-friends-$COLNAME-$LTDATE-$COLLECTION.gdf"
+echo "grafo-friends-$COLNAME-$LTDATE-$COLLECTION.gdf"

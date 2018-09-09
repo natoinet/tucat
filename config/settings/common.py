@@ -272,7 +272,7 @@ LOGGING = {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': 'log/logging.log',
+            'filename': '../log/logging.log',
             'formatter': 'simple'
         }
     },

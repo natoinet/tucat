@@ -14,6 +14,7 @@ class TucatExportCommand(BaseCommand):
         group = parser.add_mutually_exclusive_group()
         group.add_argument('-r', '--run', action='store_true')
         group.add_argument('-s', '--stop', action='store_true')
+        group.add_argument('-d', '--download', action='store_true')
 
     def handle(self, *args, **options):
         logger.info('Command Handle %s %s', args, options)
@@ -24,6 +25,9 @@ class TucatExportCommand(BaseCommand):
         elif options['stop']:
             logger.info('Stopping')
             self.do_cmd(action='stop', obj=options['obj'])
+        elif options['download']:
+            logger.info('Downloading')
+            self.do_cmd(action='download', obj=options['obj'])
         else:
             logger.info('Unknown command')
 

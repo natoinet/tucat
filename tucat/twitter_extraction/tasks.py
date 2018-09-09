@@ -137,7 +137,7 @@ def do_run_export(self, obj_pk):
                 logger.warning('do_run_export unknown export_type %s', export.export_type)
 
         logger.info('do_run_export output %s', output)
-        export.link_file = output
+        export.link_file = output.decode("utf-8")
         export.update(self.request.id, 'c')
     except Exception as e:
         logger.error('do_run_export exception %s', e)

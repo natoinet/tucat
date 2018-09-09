@@ -35,4 +35,4 @@ cat "$OUTPUT_FILES/archivo-node-mod-$COLNAME-$COLLECTION.csv" "$OUTPUT_FILES/arc
 mongo --quiet --host $MONGOHOST --eval "db.getSiblingDB('$DBNAME')['$COLLECTION'].drop()"
 
 #echo "Finished> $OUTPUT_FILES/grafo-friends-$1-$COLLECTION.gdf - Thank you for your patience."
-echo "$OUTPUT_FILES/grafo-friends-$COLNAME-$COLLECTION.gdf"
+echo "grafo-friends-$COLNAME-$COLLECTION.gdf"
