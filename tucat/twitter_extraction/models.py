@@ -1,5 +1,4 @@
-from datetime import datetime
-
+from django.utils import timezone
 from django.db import models
 from django.db.models import signals
 
@@ -30,7 +29,7 @@ class ExtractionCollectionManager(models.Manager):
 class ExtractionCollection(models.Model):
     owner_name = models.CharField(max_length=200)
     list_name = models.CharField(max_length=200)
-    date = models.DateField(max_length=200, default=datetime.now())
+    date = models.DateField(max_length=200, default=timezone.now())
     nb_users = models.IntegerField(default=0)
     completed = models.DateTimeField()
     collection_name = models.CharField(max_length=200, default='')
