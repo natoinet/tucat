@@ -16,7 +16,7 @@ function aggregate() {
 
     if (typeof ltdate !== 'undefined') {
         var last_tweet_date = new Date(ltdate)
-        query = {$match : { friendfollower : { $ne : [ ]}, 'statuscreatedat' : {$gte : last_tweet_date}}}
+        query = {$match : { friendfollower : { $ne : [ ]}, 'dtstatuscreatedat' : {$gte : last_tweet_date}}}
     }
     else {
         query = {$match : { friendfollower : { $ne : [ ] }}}

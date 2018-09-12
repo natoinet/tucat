@@ -4,7 +4,6 @@ import logging
 import subprocess
 from datetime import datetime
 from os.path import dirname
-from datetime import datetime
 from pathlib import Path
 import re
 
@@ -127,7 +126,7 @@ def do_run_export(self, obj_pk):
             else:
                 logger.warning('do_run_export unknown export_type %s', export.export_type)
         else:
-            epoch_lt = export.last_tweet.strftime('%s')
+            epoch_lt = export.last_tweet.strftime('%s') + '000'
             logger.debug('do_run_export last_tweet epoch %s', epoch_lt)
 
             if (export.export_type.followers is True):
