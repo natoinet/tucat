@@ -29,7 +29,7 @@ env = environ.Env(DEBUG=(bool, False),)
 SECRET_KEY = '4d!2@*cmd5)xz$s#jt9xt8dcox2om!78a^=+wy!dyyf)9b!lkj'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     'testserver',
@@ -172,7 +172,7 @@ LOGGING = {
         },
         'twitter_streaming': {
             'handlers': ['file','console'],
-            'level': 'DEBUG'
+            'level': 'INFO'
         },        
     }
 }
@@ -225,7 +225,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Brussels'
 
 USE_I18N = True
 
