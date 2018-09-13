@@ -7,6 +7,7 @@ from os.path import dirname
 from pathlib import Path
 import re
 
+from django.conf import settings
 from django.http import HttpResponse
 
 from celery import task
@@ -16,7 +17,8 @@ from tucat.core.celery import app
 from tucat.core.models import DjangoAdminCeleryTaskLock
 from tucat.application.models import TucatApplication
 from tucat.twitter_extraction.models import TwitterListExtraction, TwitterListExtractionExport, ExtractionCollection
-from tucat.twitter_extraction.twitter import tw_extraction
+from tucat.twitter_extraction.twitter import tw_extraction, get_collection
+
 
 logger = logging.getLogger('twitter_extraction')
 
@@ -42,6 +44,7 @@ def do_run_extraction(self, obj_pk):
             colname = "-".join([element.owner_name, element.list_name, datetime.utcnow().strftime('%Y-%m-%d-%H-%M')])
             tw_extraction(owner_name=element.owner_name, list_name=element.list_name, collection_name=colname)
             ExtractionCollection.objects.create_collection(element.owner_name, element.list_name, datetime.now(), colname)
+            add_dt_to_mongo(colname)
 
         one_app.update(status='c')
 
@@ -53,6 +56,30 @@ def do_run_extraction(self, obj_pk):
         lock.delete()
 
     return self.request.id
+
+def add_dt_to_mongo(col_name):
+    logger.info('add_dt')
+
+    try:
+        db_name = __package__.replace('.', '_')
+        collection = get_collection(db_name, col_name)
+
+        for doc in collection.find():
+            doc['dtcreatedat'] = get_dt( doc['createdat'] )
+            doc['dtstatuscreatedat'] = get_dt( doc['statuscreatedat'] )
+            collection.replace_one({'_id': doc['_id']}, doc)
+
+    except Exception as e:
+        logger.exception(e)
+
+def get_dt(date_val):
+    dt_val = datetime.fromtimestamp(0)
+    try:
+        if (date_val is not None):
+            dt_val = datetime.strptime(date_val, '%a %b %d %H:%M:%S %z %Y')
+    except Exception as e:
+        logger.exception(e)
+    return dt_val
 
 def do_stop_extraction(obj_pk):
     try:
