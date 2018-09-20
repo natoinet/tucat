@@ -21,3 +21,7 @@ urlpatterns = [
     url(r'^accounts/', include('allauth.urls')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+admin.site.site_header = 'Tucat Administration'
+admin.site.site_title = 'Tucat Administration'
+admin.site.index_title = 'Home'

@@ -14,7 +14,7 @@
 
       {% load socialaccount %}
       <ol>
-		  <h3><li><a href="{% provider_login_url "twitter" %}">Login with Twitter</a></h3></li>
+        <li><a href="{% provider_login_url "twitter" %}"><img src="/static/images/sign-in-with-twitter-link.png" ></a></li>
 		  {% if socialaccount.providers  %}
       <p>{% blocktrans with site.name as site_name %}Please sign in with one
       of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
@@ -33,8 +33,8 @@
       {% include "socialaccount/snippets/login_extra.html" %}
 
       {% endif %}
-	  
-	  <h3><li><a href="{% url 'account_signup' %}">Sign-up</a>, or Login :</h3>
+
+	  <li><a href="{% url 'account_signup' %}">Sign-up</a>, or Login :
       <form class="login" method="POST" action="{% url 'account_login' %}">
         {% csrf_token %}
         {{ form|crispy }}
@@ -49,4 +49,3 @@
   </div>
 </div>
 {% endblock %}
-

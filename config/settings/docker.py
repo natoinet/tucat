@@ -51,9 +51,6 @@ DJANGO_APPS = (
 
     # Useful template tags:
     # 'django.contrib.humanize',
-
-    # Admin
-    'django.contrib.admin',
 )
 THIRD_PARTY_APPS = (
     'crispy_forms',  # Form layouts
@@ -62,6 +59,10 @@ THIRD_PARTY_APPS = (
     'allauth.socialaccount',  # registration
     'allauth.socialaccount.providers.twitter',
     'django_celery_beat',
+    'admin_interface',
+    'colorfield',
+    # Admin after django-admin-interface
+    'django.contrib.admin',
 )
 
 # Apps specific for this project go here.
@@ -119,7 +120,9 @@ AUTHENTICATION_BACKENDS = (
 # Custom user app defaults
 # Select the correct user model
 AUTH_USER_MODEL = 'users.User'
-LOGIN_REDIRECT_URL = 'users:redirect'
+
+# Redirects to the administration after successful login
+LOGIN_REDIRECT_URL = '/admin'
 LOGIN_URL = 'account_login'
 
 # SLUGLIFIER
@@ -234,19 +237,32 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.0/howto/static-files/
-
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(os.path.dirname(os.path.dirname(BASE_DIR)), 'staticfiles')
-#MEDIA_ROOT = os.path.join(os.path.dirname(os.path.dirname(BASE_DIR)), 'media')
-# MEDIA CONFIGURATION
+# STATIC
 # ------------------------------------------------------------------------------
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#media-root
-MEDIA_ROOT = str(APPS_DIR('media'))
+# https://docs.djangoproject.com/en/dev/ref/settings/#static-root
+STATIC_ROOT = os.path.join(os.path.dirname(os.path.dirname(BASE_DIR)), 'staticfiles')
 
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#media-url
+# https://docs.djangoproject.com/en/dev/ref/settings/#static-url
+STATIC_URL = '/static/'
+
+# https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#std:setting-STATICFILES_DIRS
+STATICFILES_DIRS = [
+    str(APPS_DIR.path('static')),
+]
+# https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#staticfiles-finders
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+]
+
+
+# MEDIA
+# ------------------------------------------------------------------------------
+# https://docs.djangoproject.com/en/dev/ref/settings/#media-root
+MEDIA_ROOT = str(APPS_DIR('media'))
+# https://docs.djangoproject.com/en/dev/ref/settings/#media-url
 MEDIA_URL = '/media/'
+
 
 # Celery settings
 BROKER_URL = 'amqp://guest:guest@rabbitmq:5672/'
