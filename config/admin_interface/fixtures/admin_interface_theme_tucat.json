@@ -2,7 +2,7 @@
 {
     "model": "admin_interface.theme",
     "fields": {
-        "name": "Django",
+        "name": "Tucat",
         "active": true,
         "title": "TUCAT ADMINISTRATION",
         "title_color": "#000000",

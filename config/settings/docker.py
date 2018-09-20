@@ -63,7 +63,6 @@ THIRD_PARTY_APPS = (
     'colorfield',
     # Admin after django-admin-interface
     'django.contrib.admin',
-    'import_export',
 )
 
 # Apps specific for this project go here.
