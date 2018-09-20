@@ -1,0 +1,42 @@
+[
+{
+    "model": "admin_interface.theme",
+    "fields": {
+        "name": "Django",
+        "active": true,
+        "title": "TUCAT ADMINISTRATION",
+        "title_color": "#000000",
+        "title_visible": true,
+        "logo": "admin-interface/logo/vectorstock_13696603_SLyn4tz.png",
+        "logo_color": "#FFFFFF",
+        "logo_visible": true,
+        "favicon": "",
+        "env": "development",
+        "env_visible": true,
+        "css_header_background_color": "#FFFFFF",
+        "css_header_text_color": "#44B78B",
+        "css_header_link_color": "#0B0F80",
+        "css_header_link_hover_color": "#000000",
+        "css_module_background_color": "#000000",
+        "css_module_text_color": "#FFFFFF",
+        "css_module_link_color": "#FFFFFF",
+        "css_module_link_hover_color": "#0B0F80",
+        "css_module_rounded_corners": true,
+        "css_generic_link_color": "#0B0F80",
+        "css_generic_link_hover_color": "#000000",
+        "css_save_button_background_color": "#F5DD5D",
+        "css_save_button_background_hover_color": "#D1BD4F",
+        "css_save_button_text_color": "#000000",
+        "css_delete_button_background_color": "#BA2121",
+        "css_delete_button_background_hover_color": "#A41515",
+        "css_delete_button_text_color": "#FFFFFF",
+        "css": "",
+        "related_modal_active": true,
+        "related_modal_background_color": "#000000",
+        "related_modal_background_opacity": "0.3",
+        "related_modal_rounded_corners": true,
+        "list_filter_dropdown": true,
+        "recent_actions_visible": true
+    }
+}
+]

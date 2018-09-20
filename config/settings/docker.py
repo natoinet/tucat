@@ -63,6 +63,7 @@ THIRD_PARTY_APPS = (
     'colorfield',
     # Admin after django-admin-interface
     'django.contrib.admin',
+    'import_export',
 )
 
 # Apps specific for this project go here.
@@ -176,7 +177,7 @@ LOGGING = {
         'twitter_streaming': {
             'handlers': ['file','console'],
             'level': 'INFO'
-        },        
+        },
     }
 }
 
