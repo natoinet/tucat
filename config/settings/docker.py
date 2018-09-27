@@ -16,7 +16,6 @@ import environ
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# TODO -- Really not great
 ROOT_DIR = environ.Path(__file__) - 3  # (/a/b/myfile.py - 3 = /)
 APPS_DIR = ROOT_DIR.path('tucat')
 
@@ -194,15 +193,17 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'dbtucat',
-        'USER': 'dbtucat_role',
-        'PASSWORD': 'dbtucat_password',
+        'NAME': env('POSTGRES_DB'),
+        'USER': env('POSTGRES_USER'),
+        'PASSWORD': env('POSTGRES_PASSWORD'),
         'HOST': 'dbtucat',
         'PORT': '5432',
     },
 }
 
-MONGO_CLIENT = env('MONGOCLIENT')
+# MONGO_CLIENT = env('MONGOCLIENT')
+# MONGO_CLIENT = mongodb://mongodb:27017
+MONGO_CLIENT = 'mongodb://%s:%s@mongodb:27017' % ( env('MONGO_INITDB_ROOT_USERNAME'), env('MONGO_INITDB_ROOT_PASSWORD'))
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -264,15 +265,16 @@ MEDIA_ROOT = str(APPS_DIR('media'))
 MEDIA_URL = '/media/'
 
 
-# Celery settings
-BROKER_URL = 'amqp://guest:guest@rabbitmq:5672/'
-CELERY_BROKER_URL = 'amqp://guest:guest@rabbitmq:5672/'
-CELERYBEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+# Celery settings always start with CELERY_ even with the new settings
+# http://docs.celeryproject.org/en/latest/django/first-steps-with-django.html
+# http://docs.celeryproject.org/en/latest/userguide/configuration.html
 
-CELERYD_CONCURRENCY=1
-
-#: Only add pickle to this list if your broker is secured
-#: from unwanted access (see userguide/security.html)
+env('RABBITMQ_DEFAULT_USER')
+#CELERY_BROKER_URL = 'amqp://guest:guest@rabbitmq:5672/'
+CELERY_BROKER_URL = 'amqp://%s:%s@rabbitmq:5672%s' % ( env('RABBITMQ_DEFAULT_USER'),
+env('RABBITMQ_DEFAULT_PASS'), env('RABBITMQ_DEFAULT_VHOST') )
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+CELERY_WORKER_CONCURRENCY=1
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'

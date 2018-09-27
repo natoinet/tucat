@@ -120,7 +120,7 @@ DATABASES = {
     'default': env.db(), # Raises ImproperlyConfigured exception if DATABASE_URL not in os.environ
 }
 
-MONGO_CLIENT = env('MONGOCLIENT')
+#MONGO_CLIENT = env('MONGOCLIENT')
 
 # GENERAL CONFIGURATION
 # ------------------------------------------------------------------------------
