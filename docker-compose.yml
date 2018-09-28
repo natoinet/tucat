@@ -1,0 +1,84 @@
+version: "3.7"
+services:
+  djangoapp:
+    depends_on:
+      - dbtucat
+      - mongodb
+      - rabbitmq
+    env_file:
+      .env
+    build: .
+    command: supervisord
+    #volumes:
+    #  - tucatapp_volume:/opt/services/djangoapp
+    networks:
+      - httpsportal_network
+      - dbtucat_network
+      - mongodb_network
+      - rabbitmq_network
+
+  dbtucat:
+    image: postgres:latest
+    env_file:
+      .env
+    volumes:
+      - dbtucat_volume:/var/lib/postgresql/data
+    networks:
+      - dbtucat_network
+
+  mongodb:
+    image: mongo:latest
+    env_file:
+      .env
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb_volume:/data/db
+    networks:
+      - mongodb_network
+
+  https-portal:
+    image: steveltn/https-portal:1
+    env_file:
+      .env
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - static:/opt/services/djangoapp/staticfiles
+      - media:/opt/services/djangoapp/media
+    links:
+      - djangoapp
+    restart: always
+    networks:
+      - httpsportal_network
+
+  rabbitmq:
+    image: rabbitmq:latest
+    env_file:
+      .env
+    ports:
+      - 15672:15672
+      - 5672:5672
+    volumes:
+      - rabbitmq_volume:/var/lib/rabbitmq/mnesia/
+    networks:
+      - rabbitmq_network
+
+networks:
+  dbtucat_network:
+    driver: bridge
+  mongodb_network:
+    driver: bridge
+  httpsportal_network:
+    driver: bridge
+  rabbitmq_network:
+    driver: bridge
+
+volumes:
+  tucatapp_volume:
+  dbtucat_volume:
+  mongodb_volume:
+  static:
+  media:
+  rabbitmq_volume:
