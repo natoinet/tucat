@@ -31,7 +31,6 @@ SECRET_KEY = '4d!2@*cmd5)xz$s#jt9xt8dcox2om!78a^=+wy!dyyf)9b!lkj'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'testserver',
     'localhost',
     'dotucat.nowchess.org'
 ]
@@ -201,8 +200,6 @@ DATABASES = {
     },
 }
 
-# MONGO_CLIENT = env('MONGOCLIENT')
-# MONGO_CLIENT = mongodb://mongodb:27017
 MONGO_CLIENT = 'mongodb://%s:%s@mongodb:27017' % ( env('MONGO_INITDB_ROOT_USERNAME'), env('MONGO_INITDB_ROOT_PASSWORD'))
 
 # Password validation
