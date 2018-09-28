@@ -2,9 +2,9 @@
 
 python manage.py loaddata admin_interface_theme_tucat.json
 
+python manage.py loaddata auth.json
 python manage.py loaddata account.json
 python manage.py loaddata users.json
-python manage.py loaddata auth.json
 
 python manage.py loaddata application.json
 
