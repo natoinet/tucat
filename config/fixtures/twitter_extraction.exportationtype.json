@@ -1,0 +1,22 @@
+[
+{
+    "model": "twitter_extraction.exportationtype",
+    "pk": 1,
+    "fields": {
+        "name": "Top users & Friends",
+        "top_users": true,
+        "followers": false,
+        "friends": true
+    }
+},
+{
+    "model": "twitter_extraction.exportationtype",
+    "pk": 2,
+    "fields": {
+        "name": "Top users & Followers",
+        "top_users": true,
+        "followers": true,
+        "friends": false
+    }
+}
+]

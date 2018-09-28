@@ -76,3 +76,8 @@ tucat/rabbitmq-signing-key-public.asc
 
 # Output
 tucat/output/
+
+# Fixtures
+config/fixtures/account.json
+config/fixtures/users.json
+config/fixtures/socialaccount.json

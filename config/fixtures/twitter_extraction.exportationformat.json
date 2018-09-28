@@ -1,0 +1,18 @@
+[
+{
+    "model": "twitter_extraction.exportationformat",
+    "pk": 1,
+    "fields": {
+        "name": "Gephi",
+        "format": "gephi"
+    }
+},
+{
+    "model": "twitter_extraction.exportationformat",
+    "pk": 2,
+    "fields": {
+        "name": "Summary",
+        "format": "summary"
+    }
+}
+]
