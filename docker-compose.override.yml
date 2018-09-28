@@ -4,4 +4,4 @@ services:
     volumes:
       - ./log:/var/log/tucat
       - .:/opt/services/djangoapp
-      - ./supervisord/conf.d:/etc/supervisor/conf.d
+      - ./config/supervisord/conf.d:/etc/supervisor/conf.d

@@ -37,10 +37,10 @@ RUN echo "Supervidor Configuration " && \
     mkdir -p /etc/supervisor && \
     mkdir -p /etc/supervisor/conf.d
 
-ADD supervisord/supervisord.conf /etc/supervisor/supervisord.conf
-ADD supervisord/conf.d/celerybeat.conf  /etc/supervisor/conf.d/celerybeat.conf
-ADD supervisord/conf.d/celeryd.conf     /etc/supervisor/conf.d/celeryd.conf
-ADD supervisord/conf.d/tucat.conf       /etc/supervisor/conf.d/tucat.conf
+ADD config/supervisord/supervisord.conf /etc/supervisor/supervisord.conf
+ADD config/supervisord/conf.d/celerybeat.conf  /etc/supervisor/conf.d/celerybeat.conf
+ADD config/supervisord/conf.d/celeryd.conf     /etc/supervisor/conf.d/celeryd.conf
+ADD config/supervisord/conf.d/tucat.conf       /etc/supervisor/conf.d/tucat.conf
 
 RUN cd ${APPHOME} && python manage.py collectstatic --no-input
 RUN ln -s ../djangoapp/tucat/output/ ../staticfiles
