@@ -7,7 +7,13 @@ services:
       - rabbitmq
     env_file:
       .env
-    build: .
+    #build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - apphome=$APPHOME
+        - applog=$APPLOG
     command: supervisord
     #volumes:
     #  - tucatapp_volume:/opt/services/djangoapp

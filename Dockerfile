@@ -5,9 +5,17 @@ FROM python:latest
 LABEL authors="Antoine Brunel <antoine.brunel@gmail.com> & Victor Esteban <victor@limogin.com>"
 LABEL release=1.0
 
+ARG apphome
+ARG applog
+#ARG APPHOME
+#ARG APPLOG
+
+RUN echo ${apphome} ${applog}
 ENV PYTHONUNBUFFERED 1
-ENV APPHOME /opt/services/djangoapp
-ENV APPLOG /var/log/tucat
+#ENV APPHOME /opt/services/djangoapp
+#ENV APPLOG /var/log/tucat
+ENV APPHOME ${apphome}
+ENV APPLOG ${applog}
 
 #### Install Mongodb Entreprise tools
 RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 9DA31620334BD75D9DCB49F368818C72E52529D4
@@ -36,6 +44,9 @@ RUN echo "Supervidor Configuration " && \
     mkdir -p /var/log/supervisor && \
     mkdir -p /etc/supervisor && \
     mkdir -p /etc/supervisor/conf.d
+
+RUN echo "Creating Celery user" && \
+		useradd -M --system -u 1000 tucatcelery
 
 ADD config/supervisord/supervisord.conf /etc/supervisor/supervisord.conf
 ADD config/supervisord/conf.d/celerybeat.conf  /etc/supervisor/conf.d/celerybeat.conf

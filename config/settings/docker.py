@@ -25,10 +25,11 @@ env = environ.Env(DEBUG=(bool, False),)
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '4d!2@*cmd5)xz$s#jt9xt8dcox2om!78a^=+wy!dyyf)9b!lkj'
+#SECRET_KEY = '4d!2@*cmd5)xz$s#jt9xt8dcox2om!78a^=+wy!dyyf)9b!lkj'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = [
     'localhost',
@@ -147,12 +148,12 @@ LOGGING = {
     },
     'handlers': {
         'console': {
-            'level': 'INFO',
+            'level': env('LOGLEVEL'),
             'class': 'logging.StreamHandler',
             'formatter': 'simple'
         },
         'file': {
-            'level': 'INFO',
+            'level': env('LOGLEVEL'),
             'class': 'logging.FileHandler',
             'filename': env('APPLOG') + '/logging.log',
             'formatter': 'simple'
@@ -161,19 +162,19 @@ LOGGING = {
     'loggers': {
         'core': {
             'handlers': ['file', 'console'],
-            'level': 'INFO'
+            'level': env('LOGLEVEL')
         },
         'application': {
             'handlers': ['file', 'console'],
-            'level': 'INFO'
+            'level': env('LOGLEVEL')
         },
         'twitter_extraction': {
             'handlers': ['file', 'console'],
-            'level': 'INFO'
+            'level': env('LOGLEVEL')
         },
         'twitter_streaming': {
             'handlers': ['file','console'],
-            'level': 'INFO'
+            'level': env('LOGLEVEL')
         },
     }
 }
