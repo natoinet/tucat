@@ -12,7 +12,7 @@ class TwitterListExtraction(TucatElement):
 
     owner_name = models.CharField(max_length=200)
     list_name = models.CharField(max_length=200)
-    
+
     def __str__(self):
         return self.owner_name + ' > ' + self.list_name
 
@@ -29,7 +29,7 @@ class ExtractionCollectionManager(models.Manager):
 class ExtractionCollection(models.Model):
     owner_name = models.CharField(max_length=200)
     list_name = models.CharField(max_length=200)
-    date = models.DateField(max_length=200, default=timezone.now())
+    date = models.DateField(max_length=200, default=timezone.now)
     nb_users = models.IntegerField(default=0)
     completed = models.DateTimeField()
     collection_name = models.CharField(max_length=200, default='')
