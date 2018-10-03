@@ -81,3 +81,6 @@ tucat/output/
 config/fixtures/account.json
 config/fixtures/users.json
 config/fixtures/socialaccount.json
+
+# Tucat
+tucat/twitter_extraction/
