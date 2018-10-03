@@ -84,3 +84,4 @@ config/fixtures/socialaccount.json
 
 # Tucat
 tucat/twitter_extraction/
+tucat/twitter_streaming/
