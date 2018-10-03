@@ -8,7 +8,10 @@ from pathlib import Path
 import re
 
 from django.conf import settings
-from django.http import HttpResponse
+#from django.http import HttpResponse
+#from django.core.files import File
+
+#from private_storage.fields import PrivateFileField
 
 from celery import task
 from celery.app.task import Task
@@ -135,7 +138,7 @@ def do_run_export(self, obj_pk):
     try:
         output = None
         db_name = __package__.replace('.', '_')
-        out_folder = str(Path(__file__).parents[1] / 'output') 
+        out_folder = str(Path(__file__).parents[1] / 'output')
         export.link_file = output
         export.update(self.request.id, 'r')
 
@@ -170,14 +173,10 @@ def do_run_export(self, obj_pk):
 
         result = output.decode("utf-8")
         export.link_file = re.findall(r"\S+", result)[1]
-        #f = open('./tucat/output/' + link_file, 'r')
-        #response = HttpResponse(f, content_type='text/csv')
-        #response['Content-Disposition'] = ('attachment; filename='+ link_file)
-        #export.link_file = response
-        
-        export.update(self.request.id, 'c')
+
+        export.update(self.request.id, 'c', link_file=export.link_file)
     except Exception as e:
-        logger.error('do_run_export exception %s', e)
+        logger.exception(e)
         export.update(self.request.id, 'f')
 
 def do_stop_export(obj_pk):
@@ -200,7 +199,7 @@ def do_export_cmd(action=None, obj=None):
     if (action is 'run'):
         logger.info('do_export_cmd running')
         do_run_export.apply_async((obj.pk,))
-        
+
 #        do_run_export.apply_async(kwargs={'export_type_id': obj.export_type.pk, 'collection': obj.collections.pk, 'last_tweet' : obj.last_tweet})
     elif (action is 'stop'):
         logger.info('do_export_cmd stopping')

@@ -50,9 +50,6 @@ services:
     ports:
       - '80:80'
       - '443:443'
-    volumes:
-      - static:/opt/services/djangoapp/staticfiles
-      - media:/opt/services/djangoapp/media
     links:
       - djangoapp
     restart: always
