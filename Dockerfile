@@ -35,8 +35,9 @@ RUN pip install -r /requirements.txt
 ## Install Tucat
 RUN echo "Install Tucat Application & plugings" && \
 	git clone https://github.com/natoinet/tucat ${APPHOME} && \
-	git clone https://github.com/natoinet/twitter_extraction ${APPHOME}/tucat && \
-	git clone https://github.com/natoinet/twitter_streaming ${APPHOME}/tucat
+	cd ${APPHOME}/tucat && \
+	git clone https://github.com/natoinet/twitter_extraction && \
+	git clone https://github.com/natoinet/twitter_streaming
 
 COPY ./.env ${APPHOME}
 
