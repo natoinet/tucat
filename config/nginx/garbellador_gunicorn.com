@@ -1,3 +1,4 @@
+## FTR : Unused
 server {
     listen 80;
     client_max_body_size 4G;
@@ -36,4 +37,3 @@ server {
         root /home/antoinet/src/tucat/staticfiles/;
     }
 }
-
