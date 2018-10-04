@@ -14,7 +14,7 @@ services:
       args:
         - apphome=$APPHOME
         - applog=$APPLOG
-    command: supervisord
+    command: supervisord -c /etc/supervisor/supervisord.conf
     #volumes:
     #  - tucatapp_volume:/opt/services/djangoapp
     networks:

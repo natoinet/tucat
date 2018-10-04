@@ -28,6 +28,9 @@ RUN mkdir -p ${APPLOG}
 
 WORKDIR ${APPHOME}
 
+#RUN addgroup --system django \
+#    && adduser --system django --ingroup django
+
 # Install dependencies
 ADD ./requirements.txt /requirements.txt
 RUN pip install -r /requirements.txt
@@ -48,6 +51,8 @@ RUN echo "Supervidor Configuration " && \
     mkdir -p /etc/supervisor && \
     mkdir -p /etc/supervisor/conf.d
 
+RUN echo "Creating Django user" && \
+		useradd -M --system tucatdjango
 RUN echo "Creating Celery user" && \
 		useradd -M --system -u 1000 tucatcelery
 
@@ -56,7 +61,10 @@ ADD config/supervisord/conf.d/celerybeat.conf  /etc/supervisor/conf.d/celerybeat
 ADD config/supervisord/conf.d/celeryd.conf     /etc/supervisor/conf.d/celeryd.conf
 ADD config/supervisord/conf.d/tucat.conf       /etc/supervisor/conf.d/tucat.conf
 
+RUN chown -R tucatdjango ${APPHOME}/..
+
 RUN cd ${APPHOME} && python manage.py collectstatic --no-input
+
 RUN ln -s ../djangoapp/tucat/output/ ../staticfiles
 
 # Expose the port
