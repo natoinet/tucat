@@ -26,6 +26,8 @@ Clone the twitter_extraction repository
   git clone https://github.com/natoinet/twitter_extraction
   
   git clone https://github.com/natoinet/twitter_streaming
+  
+  cd ..
 
 Build docker images
 --------------
