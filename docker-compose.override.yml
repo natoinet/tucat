@@ -1,7 +1,0 @@
-version: "3.7"
-services:
-  djangoapp:
-    volumes:
-      - ./log:/var/log/tucat
-      - .:/opt/services/djangoapp
-      - ./config/supervisord/conf.d:/etc/supervisor/conf.d
