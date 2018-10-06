@@ -7,13 +7,9 @@ LABEL release=1.0
 
 ARG apphome
 ARG applog
-#ARG APPHOME
-#ARG APPLOG
 
 RUN echo ${apphome} ${applog}
 ENV PYTHONUNBUFFERED 1
-#ENV APPHOME /opt/services/djangoapp
-#ENV APPLOG /var/log/tucat
 ENV APPHOME ${apphome}
 ENV APPLOG ${applog}
 
@@ -25,6 +21,8 @@ RUN apt-get install -y mongodb-enterprise-shell mongodb-enterprise-tools
 
 RUN mkdir -p ${APPHOME}
 RUN mkdir -p ${APPLOG}
+RUN touch ${APPLOG}/celery_beat.log ${APPLOG}/celery_worker.log ${APPLOG}/gunicorn.log
+RUN chmod +x ${APPLOG}
 
 WORKDIR ${APPHOME}
 
@@ -62,6 +60,8 @@ ADD config/supervisord/conf.d/celeryd.conf     /etc/supervisor/conf.d/celeryd.co
 ADD config/supervisord/conf.d/tucat.conf       /etc/supervisor/conf.d/tucat.conf
 
 RUN chown -R tucatdjango ${APPHOME}/..
+RUN chown -R tucatdjango ${APPLOG}/
+
 
 RUN cd ${APPHOME} && python manage.py collectstatic --no-input
 
