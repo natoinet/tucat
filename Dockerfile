@@ -21,8 +21,8 @@ RUN apt-get install -y mongodb-enterprise-shell mongodb-enterprise-tools
 
 RUN mkdir -p ${APPHOME}
 RUN mkdir -p ${APPLOG}
-RUN touch ${APPLOG}/celery_beat.log ${APPLOG}/celery_worker.log ${APPLOG}/gunicorn.log
-RUN chmod +x ${APPLOG}
+#RUN touch ${APPLOG}/celery_beat.log ${APPLOG}/celery_worker.log ${APPLOG}/gunicorn.log
+RUN chmod 700 -R ${APPLOG}
 
 WORKDIR ${APPHOME}
 
@@ -42,30 +42,23 @@ RUN echo "Install Tucat Application & plugings" && \
 
 COPY ./.env ${APPHOME}
 
-RUN echo "Output folder" && mkdir -p ${APPHOME}/tucat/tucat/output
-
 RUN echo "Supervidor Configuration " && \
     mkdir -p /var/log/supervisor && \
     mkdir -p /etc/supervisor && \
     mkdir -p /etc/supervisor/conf.d
 
 RUN echo "Creating Django user" && \
-		useradd -M --system tucatdjango
-RUN echo "Creating Celery user" && \
-		useradd -M --system -u 1000 tucatcelery
+		useradd -M --system -u 1000 tucat
 
 ADD config/supervisord/supervisord.conf /etc/supervisor/supervisord.conf
 ADD config/supervisord/conf.d/celerybeat.conf  /etc/supervisor/conf.d/celerybeat.conf
 ADD config/supervisord/conf.d/celeryd.conf     /etc/supervisor/conf.d/celeryd.conf
 ADD config/supervisord/conf.d/tucat.conf       /etc/supervisor/conf.d/tucat.conf
 
-RUN chown -R tucatdjango ${APPHOME}/..
-RUN chown -R tucatdjango ${APPLOG}/
-
+RUN chown -R tucat ${APPHOME}/..
+RUN chown -R tucat ${APPLOG}/
 
 RUN cd ${APPHOME} && python manage.py collectstatic --no-input
-
-RUN ln -s ../djangoapp/tucat/output/ ../staticfiles
 
 # Expose the port
 EXPOSE 8000
