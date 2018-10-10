@@ -197,8 +197,8 @@ DATABASES = {
         'NAME': env('POSTGRES_DB'),
         'USER': env('POSTGRES_USER'),
         'PASSWORD': env('POSTGRES_PASSWORD'),
-        'HOST': 'dbtucat',
-        'PORT': '5432',
+        'HOST': env('POSTGRES_HOST'),
+        'PORT': ENV('POSTGRES_PORT'),
     },
 }
 

@@ -58,6 +58,11 @@ ADD config/supervisord/conf.d/tucat.conf       /etc/supervisor/conf.d/tucat.conf
 RUN chown -R tucat ${APPHOME}/..
 RUN chown -R tucat ${APPLOG}/
 
+COPY ./entrypoint /entrypoint
+RUN sed -i 's/\r//' /entrypoint
+RUN chmod +x /entrypoint
+RUN chown tucat /entrypoint
+
 RUN cd ${APPHOME} && python manage.py collectstatic --no-input
 
 # Expose the port
