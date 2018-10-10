@@ -67,3 +67,5 @@ RUN cd ${APPHOME} && python manage.py collectstatic --no-input
 
 # Expose the port
 EXPOSE 8000
+
+ENTRYPOINT ["/entrypoint"]
