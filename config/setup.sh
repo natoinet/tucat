@@ -1,7 +1,12 @@
 #!/bin/bash
 
-sudo docker-compose run --rm djangoapp python manage.py makemigrations admin_interface auth sessions sites django_celery_beat core users
-sudo docker-compose run --rm djangoapp python manage.py migrate --fake-initial
-sudo docker-compose run --rm djangoapp python manage.py createsuperuser
-sudo docker-compose run --rm djangoapp chmod +x ./config/fixtures/load.sh
-sudo docker-compose run --rm djangoapp ./config/fixtures/load.sh
+sleep 5
+python manage.py makemigrations admin_interface auth sessions sites django_celery_beat core users
+python manage.py migrate --fake-initial
+
+sleep 5
+python manage.py makemigrations admin_interface auth sessions sites django_celery_beat core users
+python manage.py migrate --fake-initial
+python manage.py createsuperuser
+chmod +x ./config/fixtures/load.sh
+./config/fixtures/load.sh
