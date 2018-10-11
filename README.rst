@@ -35,7 +35,7 @@ Build docker images
 
 Setup with initial data
 --------------
-# sudo ./config/setup.sh
+# sudo docker-compose run --rm djangoapp ./config/setup.sh
 
 Start
 # sudo docker-compose up
