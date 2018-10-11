@@ -55,17 +55,22 @@ ADD config/supervisord/conf.d/celerybeat.conf  /etc/supervisor/conf.d/celerybeat
 ADD config/supervisord/conf.d/celeryd.conf     /etc/supervisor/conf.d/celeryd.conf
 ADD config/supervisord/conf.d/tucat.conf       /etc/supervisor/conf.d/tucat.conf
 
+RUN > ${APPLOG}/logging.log > ${APPLOG}/gunicorn.log > ${APPLOG}/celery_worker.log > ${APPLOG}/celery_beat.log
 RUN chown -R tucat ${APPHOME}/..
-RUN chown -R tucat ${APPLOG}/
+RUN chown -R tucat ${APPLOG}/ && \
+    chgrp tucat ${APPLOG} && \
+    chmod g+w ${APPLOG} && \
+    chmod g+s ${APPLOG} 
+    #umask 002
 
 COPY ./entrypoint /entrypoint
 RUN sed -i 's/\r//' /entrypoint
 RUN chmod +x /entrypoint
 RUN chown tucat /entrypoint
 
-RUN cd ${APPHOME} && python manage.py collectstatic --no-input
-
 # Expose the port
 EXPOSE 8000
+
+RUN su tucat && cd ${APPHOME} && python manage.py collectstatic --no-input
 
 ENTRYPOINT ["/entrypoint"]
