@@ -7,7 +7,6 @@ services:
       - rabbitmq
     env_file:
       .env
-    #build: .
     build:
       context: .
       dockerfile: Dockerfile
@@ -15,8 +14,8 @@ services:
         - apphome=$APPHOME
         - applog=$APPLOG
     command: supervisord -c /etc/supervisor/supervisord.conf
-    #volumes:
-    #  - tucatapp_volume:/opt/services/djangoapp
+    volumes:
+      - djangoapp_volume:/opt/services
     networks:
       - httpsportal_network
       - dbtucat_network
@@ -79,7 +78,7 @@ networks:
     driver: bridge
 
 volumes:
-  tucatapp_volume:
+  djangoapp_volume:
   dbtucat_volume:
   mongodb_volume:
   static:
