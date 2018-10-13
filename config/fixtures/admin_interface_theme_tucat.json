@@ -1,5 +1,6 @@
 [
 {
+    "pk":null,
     "model": "admin_interface.theme",
     "fields": {
         "name": "Tucat",
