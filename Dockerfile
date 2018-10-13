@@ -26,9 +26,6 @@ RUN chmod 700 -R ${APPLOG}
 
 WORKDIR ${APPHOME}
 
-#RUN addgroup --system django \
-#    && adduser --system django --ingroup django
-
 # Install dependencies
 ADD ./requirements.txt /requirements.txt
 RUN pip install -r /requirements.txt
@@ -40,9 +37,10 @@ RUN echo "Install Tucat Application & plugings" && \
 	git clone https://github.com/natoinet/twitter_extraction && \
 	git clone https://github.com/natoinet/twitter_streaming
 
+# Environment configuration file
 COPY ./.env ${APPHOME}
 
-RUN echo "Supervidor Configuration " && \
+RUN echo "Supervisor Configuration " && \
     mkdir -p /var/log/supervisor && \
     mkdir -p /etc/supervisor && \
     mkdir -p /etc/supervisor/conf.d
@@ -55,22 +53,25 @@ ADD config/supervisord/conf.d/celerybeat.conf  /etc/supervisor/conf.d/celerybeat
 ADD config/supervisord/conf.d/celeryd.conf     /etc/supervisor/conf.d/celeryd.conf
 ADD config/supervisord/conf.d/tucat.conf       /etc/supervisor/conf.d/tucat.conf
 
-RUN > ${APPLOG}/logging.log > ${APPLOG}/gunicorn.log > ${APPLOG}/celery_worker.log > ${APPLOG}/celery_beat.log
+# Collect static files
 RUN chown -R tucat ${APPHOME}/..
-RUN chown -R tucat ${APPLOG}/ && \
-    chgrp tucat ${APPLOG} && \
-    chmod g+w ${APPLOG} && \
-    chmod g+s ${APPLOG} 
-    #umask 002
+RUN su tucat && cd ${APPHOME} && python manage.py collectstatic --no-input
 
-COPY ./entrypoint /entrypoint
-RUN sed -i 's/\r//' /entrypoint
-RUN chmod +x /entrypoint
-RUN chown tucat /entrypoint
+# Setting-up logs
+#RUN > ${APPLOG}/logging.log > ${APPLOG}/gunicorn.log > ${APPLOG}/celery_worker.log > ${APPLOG}/celery_beat.log
+RUN chown -R tucat ${APPLOG} && \
+    chgrp tucat -R ${APPLOG} && \
+    chmod g+w -R ${APPLOG} && \
+    chmod g+s -R ${APPLOG} 
+    #umask 002
 
 # Expose the port
 EXPOSE 8000
 
-RUN su tucat && cd ${APPHOME} && python manage.py collectstatic --no-input
+# Entry point for initial Django initial migrations 
+COPY ./entrypoint /entrypoint
+RUN sed -i 's/\r//' /entrypoint
+RUN chmod +x /entrypoint
+RUN chown tucat /entrypoint
 
 ENTRYPOINT ["/entrypoint"]
