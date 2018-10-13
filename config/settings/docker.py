@@ -70,8 +70,6 @@ LOCAL_APPS = (
     'tucat.users',  # custom users app
     'tucat.core',
     'tucat.application',
-    'tucat.twitter_extraction',
-    'tucat.twitter_streaming',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
