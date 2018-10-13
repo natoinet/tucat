@@ -33,9 +33,7 @@ RUN pip install -r /requirements.txt
 ## Install Tucat
 RUN echo "Install Tucat Application & plugings" && \
 	git clone https://github.com/natoinet/tucat ${APPHOME} && \
-	cd ${APPHOME}/tucat && \
-	git clone https://github.com/natoinet/twitter_extraction && \
-	git clone https://github.com/natoinet/twitter_streaming
+	cd ${APPHOME}/tucat
 
 # Environment configuration file
 COPY ./.env ${APPHOME}
@@ -62,13 +60,13 @@ RUN su tucat && cd ${APPHOME} && python manage.py collectstatic --no-input
 RUN chown -R tucat ${APPLOG} && \
     chgrp tucat -R ${APPLOG} && \
     chmod g+w -R ${APPLOG} && \
-    chmod g+s -R ${APPLOG} 
+    chmod g+s -R ${APPLOG}
     #umask 002
 
 # Expose the port
 EXPOSE 8000
 
-# Entry point for initial Django initial migrations 
+# Entry point for initial Django initial migrations
 COPY ./entrypoint /entrypoint
 RUN sed -i 's/\r//' /entrypoint
 RUN chmod +x /entrypoint
