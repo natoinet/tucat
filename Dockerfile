@@ -21,7 +21,6 @@ RUN apt-get install -y mongodb-enterprise-shell mongodb-enterprise-tools
 
 RUN mkdir -p ${APPHOME}
 RUN mkdir -p ${APPLOG}
-#RUN touch ${APPLOG}/celery_beat.log ${APPLOG}/celery_worker.log ${APPLOG}/gunicorn.log
 RUN chmod 700 -R ${APPLOG}
 
 WORKDIR ${APPHOME}
@@ -61,7 +60,6 @@ RUN chown -R tucat ${APPLOG} && \
     chgrp tucat -R ${APPLOG} && \
     chmod g+w -R ${APPLOG} && \
     chmod g+s -R ${APPLOG}
-    #umask 002
 
 # Expose the port
 EXPOSE 8000
