@@ -1,6 +1,6 @@
 git+https://github.com/Supervisor/supervisor
 gunicorn
-psycopg2
+psycopg2-binary
 celery
 Django
 django-allauth
