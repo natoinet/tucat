@@ -22,16 +22,12 @@ Run the following and copy the result in SECRET_KEY in the .env file
 
   # python -c 'import random; result = "".join([random.choice("abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)") for i in range(50)]); print(result)'
 
-Clone the twitter_extraction repository
+Optional : Get the extra fixtures
 -------------
 
-  # cd tucat
-
-  # git clone https://github.com/natoinet/twitter_extraction
-
-  # git clone https://github.com/natoinet/twitter_streaming
-
-  # cd ..
+Sometimes, you may need to import extra fixtures for account users & socialaccount.
+You just need to copy the corresponding json files into ./config/fixtures/.
+And they will be copied in the docker image in the next step.
 
 Build docker images
 --------------
@@ -43,14 +39,15 @@ Setup with initial data
 
   # sudo docker-compose run --rm djangoapp ./config/setup.sh
 
+Start
+--------------
+
+  # sudo docker-compose up
+
 Create a docker alias for the TucatApp container
 --------------
 
   # alias doc_tucat='sudo docker ps -f name=tucat_django -q'
 
-Start
---------------
-
-  # sudo docker-compose up
 
 LICENSE: BSD
