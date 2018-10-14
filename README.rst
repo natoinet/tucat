@@ -44,10 +44,5 @@ Start
 
   # sudo docker-compose up
 
-Create a docker alias for the TucatApp container
---------------
-
-  # alias doc_tucat='sudo docker ps -f name=tucat_django -q'
-
 
 LICENSE: BSD
