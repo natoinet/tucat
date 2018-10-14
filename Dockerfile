@@ -38,7 +38,7 @@ RUN echo "Install Tucat Application & plugings" && \
 COPY ./.env ${APPHOME}
 
 # Copy additional fixtures
-COPY ./config/fixtures/*.json ${APPHOME}/config/fixtures/*.json
+COPY ./config/fixtures/*.json ${APPHOME}/config/fixtures/
 
 RUN echo "Supervisor Configuration " && \
     mkdir -p /var/log/supervisor && \
