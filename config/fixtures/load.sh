@@ -4,9 +4,7 @@ python manage.py loaddata admin_interface_theme_tucat.json
 
 python manage.py loaddata auth.json
 
-import account users socialaccount
-
-function import {
+function importfixtures {
   for fixture in "$@"
   do
     if [ -e config/fixtures/$fixture.json ]
@@ -18,3 +16,5 @@ function import {
     fi
   done
 }
+
+importfixtures account users socialaccount
