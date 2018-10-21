@@ -17,8 +17,8 @@ class TucatExportCommand(BaseCommand):
         group.add_argument('-d', '--download', action='store_true')
 
     def handle(self, *args, **options):
-        logger.info('Command Handle %s %s', args, options)
-        
+        logger.info('Command Handle %s %s %s', str(self), args, options)
+
         if options['run']:
             logger.info('Running')
             self.do_cmd(action='run', obj=options['obj'])
@@ -33,4 +33,3 @@ class TucatExportCommand(BaseCommand):
 
     def do_cmd(self, action=None):
         logger.info('do_cmd TucatExportCommand')
-
