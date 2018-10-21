@@ -23,7 +23,7 @@ services:
       - rabbitmq_network
 
   dbtucat:
-    image: postgres:latest
+    image: postgres:10.5
     env_file:
       .env
     volumes:
@@ -49,6 +49,7 @@ services:
     ports:
       - '80:80'
       - '443:443'
+      - '5555:5555'
     links:
       - djangoapp
     restart: always
