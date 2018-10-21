@@ -1,9 +1,5 @@
 #!/bin/bash
 
-python manage.py loaddata admin_interface_theme_tucat.json
-
-python manage.py loaddata auth.json
-
 function importfixtures {
   for fixture in "$@"
   do
@@ -17,4 +13,4 @@ function importfixtures {
   done
 }
 
-importfixtures account users socialaccount
+importfixtures admin_interface_theme_tucat auth account users socialaccount
