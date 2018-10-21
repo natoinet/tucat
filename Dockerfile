@@ -1,7 +1,7 @@
 ## Tucat source code https://github.com/natoinet/tucat
 ## docker-compose build
 
-FROM python:latest
+FROM python:3.6
 LABEL authors="Antoine Brunel <antoine.brunel@gmail.com> & Victor Esteban <victor@limogin.com>"
 LABEL release=1.0
 
@@ -51,6 +51,7 @@ RUN echo "Creating Django user" && \
 ADD config/supervisord/supervisord.conf /etc/supervisor/supervisord.conf
 ADD config/supervisord/conf.d/celerybeat.conf  /etc/supervisor/conf.d/celerybeat.conf
 ADD config/supervisord/conf.d/celeryd.conf     /etc/supervisor/conf.d/celeryd.conf
+#ADD config/supervisord/conf.d/flower.conf     /etc/supervisor/conf.d/flower.conf
 ADD config/supervisord/conf.d/tucat.conf       /etc/supervisor/conf.d/tucat.conf
 
 # Collect static files
@@ -58,7 +59,6 @@ RUN chown -R tucat ${APPHOME}/..
 RUN su tucat && cd ${APPHOME} && python manage.py collectstatic --no-input
 
 # Setting-up logs
-#RUN > ${APPLOG}/logging.log > ${APPLOG}/gunicorn.log > ${APPLOG}/celery_worker.log > ${APPLOG}/celery_beat.log
 RUN chown -R tucat ${APPLOG} && \
     chgrp tucat -R ${APPLOG} && \
     chmod g+w -R ${APPLOG} && \
