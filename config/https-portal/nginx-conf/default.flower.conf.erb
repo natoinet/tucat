@@ -1,0 +1,11 @@
+# TO DO : Open port 5555 with flower configuration file
+# TO DO : During setup, this file should be edited & copied to /etc/nginx/conf.d
+
+server {
+    listen 5555;
+    server_name <%= domain.name %>;
+
+    location / {
+      proxy_pass http://djangoapp:5555;
+	   }
+}
