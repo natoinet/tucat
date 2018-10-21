@@ -10,7 +10,6 @@ from django.utils.html import format_html
 
 logger = logging.getLogger('core')
 
-
 def run(modeladmin, request, queryset):
     logger.info('Command run %s %s', request, queryset)
 
@@ -19,7 +18,6 @@ def run(modeladmin, request, queryset):
         call_command('export', obj=obj, run='run')
 run.short_description = "Run the export"
 
-
 def stop(modeladmin, request, queryset):
     logger.info('Command run %s %s', request, queryset)
 
@@ -27,7 +25,6 @@ def stop(modeladmin, request, queryset):
         logger.debug('Command export stop %s', obj)
         call_command('export', obj=obj, stop='stop')
 stop.short_description = "Stop the export"
-
 
 def download(modeladmin, request, queryset):
 
@@ -40,8 +37,8 @@ def download(modeladmin, request, queryset):
             return response
         except Exception as e:
             logger.exception(e)
-
 download.short_description = "Download this export file (one at a time)"
+
 
 class TucatExportAdmin(admin.ModelAdmin):
     actions = [run, stop, download]
