@@ -1,5 +1,5 @@
 name = 'tucat'
-loglevel = 'debug'
+loglevel = 'info'
 errorlog = '-'
 accesslog = '-'
 workers = 2
