@@ -1,84 +1,52 @@
-# -*- coding: utf-8 -*-
-'''
-Local settings
-
-- Run in Debug mode
-- Use console backend for emails
-- Add Django Debug Toolbar
-- Add django-extensions as app
-'''
+"""
+With these settings, tests run faster.
+"""
 
 from .common import *  # noqa
+from .common import env
 
-# DEBUG
+# GENERAL
 # ------------------------------------------------------------------------------
-DEBUG = env.bool('DJANGO_DEBUG', default=True)
-TEMPLATES[0]['OPTIONS']['debug'] = DEBUG
+# https://docs.djangoproject.com/en/dev/ref/settings/#debug
+DEBUG = False
+# https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
+SECRET_KEY = env("DJANGO_SECRET_KEY", default="cJxjiLG5uv4r4lAMVKLxku3b8zwyuS1jN73NWyZelidX4oro9dizQ7r1VCPRGwo2")
+# https://docs.djangoproject.com/en/dev/ref/settings/#test-runner
+TEST_RUNNER = "django.test.runner.DiscoverRunner"
 
-# SECRET CONFIGURATION
+# CACHES
 # ------------------------------------------------------------------------------
-# See: https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
-# Note: This key only used for development and testing.
-SECRET_KEY = env("DJANGO_SECRET_KEY", default='CHANGEME!!!')
-
-# Mail settings
-# ------------------------------------------------------------------------------
-EMAIL_HOST = 'localhost'
-EMAIL_PORT = 1025
-EMAIL_BACKEND = env('DJANGO_EMAIL_BACKEND',
-                    default='django.core.mail.backends.console.EmailBackend')
-
-# CACHING
-# ------------------------------------------------------------------------------
+# https://docs.djangoproject.com/en/dev/ref/settings/#caches
 CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-        'LOCATION': ''
+    "default": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache", "LOCATION": ""
     }
 }
 
-# django-debug-toolbar
+# PASSWORDS
 # ------------------------------------------------------------------------------
-MIDDLEWARE_CLASSES += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
-INSTALLED_APPS += ('debug_toolbar', )
+# https://docs.djangoproject.com/en/dev/ref/settings/#password-hashers
+PASSWORD_HASHERS = ["django.contrib.auth.hashers.MD5PasswordHasher"]
 
-INTERNAL_IPS = ('127.0.0.1', '10.0.2.2',)
-
-DEBUG_TOOLBAR_CONFIG = {
-    'DISABLE_PANELS': [
-        'debug_toolbar.panels.redirects.RedirectsPanel',
-    ],
-    'SHOW_TEMPLATE_CONTEXT': True,
-}
-
-# django-extensions
+# TEMPLATES
 # ------------------------------------------------------------------------------
-INSTALLED_APPS += ('django_extensions', )
+# https://docs.djangoproject.com/en/dev/ref/settings/#templates
+TEMPLATES[0]["OPTIONS"]["debug"] = DEBUG  # noqa F405
+TEMPLATES[0]["OPTIONS"]["loaders"] = [  # noqa F405
+    (
+        "django.template.loaders.cached.Loader",
+        [
+            "django.template.loaders.filesystem.Loader",
+            "django.template.loaders.app_directories.Loader",
+        ],
+    )
+]
 
-# TESTING
+# EMAIL
 # ------------------------------------------------------------------------------
-TEST_RUNNER = 'django.test.runner.DiscoverRunner'
-
-# Your local stuff: Below this line define 3rd party library settings
-'''
-DATABASES = {
-    # Raises ImproperlyConfigured exception if DATABASE_URL not in os.environ
-    'default': env.db("DATABASE_URL", default="postgres://localhost/tucat"),
-}
-DATABASES['default']['ATOMIC_REQUESTS'] = True
-'''
-
-INSTALLED_APPS += ("gunicorn", )
-
-'''
-DATABASES = {
-    'default': {
-    'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    'NAME': 'dj_tucat',
-    'USER': 'garbellador',
-    'PASSWORD': '0QG4ltwFDv4EhOg',
-    'HOST': '127.0.0.1',
-    'PORT': '5432',
-    }
-}
-'''
+# https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
+EMAIL_BACKEND = "django.core.mail.backends.locmem.EmailBackend"
+# https://docs.djangoproject.com/en/dev/ref/settings/#email-host
+EMAIL_HOST = "localhost"
+# https://docs.djangoproject.com/en/dev/ref/settings/#email-port
+EMAIL_PORT = 1025

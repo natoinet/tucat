@@ -15,3 +15,5 @@ django-admin-interface
 flower
 django-debug-toolbar
 django-extensions
+djangorestframework
+django-anymail[mailgun]
