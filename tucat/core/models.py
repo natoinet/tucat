@@ -17,7 +17,7 @@ logger = logging.getLogger('core')
 
 class TimeStampedModel(models.Model):
     """
-    An abstract base class model that provides 
+    An abstract base class model that provides
     self-updating ``created`` and ``modified`` fields.
     """
 
@@ -63,14 +63,14 @@ class TwitterList(TimeStampedModel):
     """
     An abstract base class model that provides:
     - self-updating ``created`` and ``modified`` fields
-    - list owner name and slug 
+    - list owner name and slug
     """
-    
+
     list_owner = models.CharField(max_length=200)
     list_name = models.CharField(max_length=200)
     list_label = models.CharField(max_length=200, null=True, blank=True)
     is_enabled = models.BooleanField()
     status = models.CharField(max_length=1, default='p', editable=False)
-    
+
     class Meta:
         abstract = True

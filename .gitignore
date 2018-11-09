@@ -82,9 +82,10 @@ config/fixtures/account.json
 config/fixtures/users.json
 config/fixtures/socialaccount.json
 
-# Tucat
+# Tucat plugins
 tucat/twitter_extraction/
 tucat/twitter_streaming/
+tucat/plugin_*
 
 # Docker
 docker-compose.override.yml
